@@ -47,14 +47,14 @@ def extract_mssql_data(
         setup_snowflake(
             snowflake_database = snowflake_database,
             snowflake_schema = snowflake_schema, 
-            mssql_table_name = "V_Inventory_Parts_Ops",
-            snowflake_table_name = "AI_V_Inventory_Parts_Ops",
+            mssql_table_name = mssql_table_name,
+            snowflake_table_name = snowflake_table_name,
             logger = logger
         )
         result = upload_to_snowflake(
             snowflake_database = snowflake_database,
             snowflake_schema = snowflake_schema, 
-            snowflake_table_name = "AI_V_Inventory_Parts_Ops",
+            snowflake_table_name = snowflake_table_name,
             logger = logger
         )
 

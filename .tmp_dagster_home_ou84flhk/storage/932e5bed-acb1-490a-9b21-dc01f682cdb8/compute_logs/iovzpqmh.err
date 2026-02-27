@@ -1,0 +1,116 @@
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mDEBUG[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - 554792 - LOGS_CAPTURED - Started capturing logs in process (pid: 554792).
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mDEBUG[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - 554792 - mns_f_utilisation_equipement - STEP_START - Started execution of step "mns_f_utilisation_equipement".
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 
+================================================================================
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🚀 PIPELINE MSSQL → SNOWFLAKE
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📤➡️❄️  Méthode: BCP + COPY INTO
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📤 Export BCP depuis SQL Server pour la table mns_f_utilisation_equipement
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🗑️  Fichier existant supprimé: /tmp/mssql_export.csv
+2026-02-27 17:34:02,777 - INFO - 🔧 BCPExporter initialisé:
+2026-02-27 17:34:02,777 - INFO -    Mode: Natif
+2026-02-27 17:34:02,777 - INFO -    BCP: bcp
+[32m2026-02-27 17:34:02 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔄 Exécution BCP...
+2026-02-27 17:34:02,800 - INFO - 💻 Mode natif
+2026-02-27 17:34:02,800 - INFO - 🔄 Commande BCP: bcp SELECT TOP 10000000 * FROM mns_f_utilisation_equipement WITH (NOLOCK) queryout /tmp/mssql_export.csv -c -C 65001 -t | -r 
+ -b 100000 -a 32767 -S *** -d *** -U *** -P ***
+2026-02-27 17:34:04,937 - INFO - BCP STDOUT:
+
+Starting copy...
+SQLState = S1000, NativeError = 0
+Error = [Microsoft][ODBC Driver 18 for SQL Server]Warning: BCP import with a format file will convert empty strings in delimited columns to NULL.
+1000 rows successfully bulk-copied to host-file. Total received: 1000
+1000 rows successfully bulk-copied to host-file. Total received: 2000
+1000 rows successfully bulk-copied to host-file. Total received: 3000
+1000 rows successfully bulk-copied to host-file. Total received: 4000
+1000 rows successfully bulk-copied to host-file. Total received: 5000
+1000 rows successfully bulk-copied to host-file. Total received: 6000
+1000 rows successfully bulk-copied to host-file. Total received: 7000
+1000 rows successfully bulk-copied to host-file. Total received: 8000
+1000 rows successfully bulk-copied to host-file. Total received: 9000
+1000 rows successfully bulk-copied to host-file. Total received: 10000
+1000 rows successfully bulk-copied to host-file. Total received: 11000
+1000 rows successfully bulk-copied to host-file. Total received: 12000
+1000 rows successfully bulk-copied to host-file. Total received: 13000
+1000 rows successfully bulk-copied to host-file. Total received: 14000
+1000 rows successfully bulk-copied to host-file. Total received: 15000
+1000 rows successfully bulk-copied to host-file. Total received: 16000
+1000 rows successfully bulk-copied to host-file. Total received: 17000
+1000 rows successfully bulk-copied to host-file. Total received: 18000
+1000 rows successfully bulk-copied to host-file. Total received: 19000
+
+19463 rows copied.
+Network packet size (bytes): 32576
+Clock Time (ms.) Total     : 737    Average : (26408.4 rows per sec.)
+
+2026-02-27 17:34:04,937 - INFO - ✅ Export BCP réussi: Durée 2.14s, Taille 1.28 MB
+[32m2026-02-27 17:34:04 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ Export BCP terminé en 2.14s
+[32m2026-02-27 17:34:04 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement -    Temps BCP: 2.14s
+[32m2026-02-27 17:34:04 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement -    Fichier: /tmp/mssql_export.csv
+[32m2026-02-27 17:34:04 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement -    Taille: 1.28 MB
+[32m2026-02-27 17:34:05 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:05 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔧 Setup Snowflake
+[32m2026-02-27 17:34:05 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+2026-02-27 17:34:05,046 - INFO - Snowflake Connector for Python Version: 4.3.0, Python Version: 3.12.3, Platform: Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39
+2026-02-27 17:34:05,047 - INFO - Connecting to GLOBAL Snowflake domain
+[32m2026-02-27 17:34:27 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔧 Création du file format CSV...
+[32m2026-02-27 17:34:27 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ File format mssql_csv_file_format créé
+[32m2026-02-27 17:34:27 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔧 Création du stage...
+[32m2026-02-27 17:34:27 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ Stage MSSQL_DIRECT_STAGE créé
+[32m2026-02-27 17:34:27 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔧 Création de la table NEEMBA.MINES.mns_f_utilisation_equipement...
+2026-02-27 17:34:27,510 - INFO - 🔧 Génération DDL: a_bronze_mns_f_utilisation_equipement
+2026-02-27 17:34:27,510 - INFO - 📋 Extraction du schéma: mns_f_utilisation_equipement
+2026-02-27 17:34:29,835 - INFO - ✅ 10 colonnes extraites
+2026-02-27 17:34:29,903 - INFO - ✅ DDL généré (10 colonnes)
+ CREATE OR REPLACE TABLE NEEMBA.MINES.a_bronze_mns_f_utilisation_equipement (
+    uteq_sk NUMBER(10,0) NULL,
+    uteq_code VARCHAR(100),
+    uteq_equ_code VARCHAR(20),
+    uteq_equ_sk NUMBER(10,0) NULL,
+    uteq_mes_code VARCHAR(40),
+    uteq_mes_sk NUMBER(10,0) NULL,
+    uteq_msi_code VARCHAR(20),
+    uteq_msi_sk NUMBER(10,0) NULL,
+    uteq_smu_mois NUMBER(10,0),
+    uteq_rfm_ak NUMBER(10,0) NULL
+)
+[32m2026-02-27 17:34:30 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ Table mns_f_utilisation_equipement créée avec succès
+[32m2026-02-27 17:34:30 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement -    Localisation: NEEMBA.MINES.mns_f_utilisation_equipement
+[32m2026-02-27 17:34:30 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:30 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔧 Upload + copy into Snowflake
+[32m2026-02-27 17:34:30 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+2026-02-27 17:34:30,469 - INFO - Snowflake Connector for Python Version: 4.3.0, Python Version: 3.12.3, Platform: Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39
+2026-02-27 17:34:30,469 - INFO - Connecting to GLOBAL Snowflake domain
+[32m2026-02-27 17:34:52 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:52 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📤 Upload vers Snowflake Stage
+[32m2026-02-27 17:34:52 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:52 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔄 Upload de mssql_export.csv...
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ Upload terminé en 1.30s
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📁 Fichiers dans le stage: 1
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - Connexion fermées dans la fonction qui appelle
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📥 COPY INTO Snowflake
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+[32m2026-02-27 17:34:53 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🔄 Chargement dans a_bronze_mns_f_utilisation_equipement...
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement -    ✓ mssql_direct_stage/mssql_export.csv.gz: 19,462 lignes
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ COPY INTO terminé en 1.35s
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📊✅ Nombre de lignes chargées : 19,462
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📊❌ Nombre d'erreurs : 0
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📊 Total dans la table a_bronze_mns_f_utilisation_equipement: 19,462
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - Connexion fermées dans la fonction qui appelle
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 
+================================================================================
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ✅ PIPELINE TERMINÉ AVEC SUCCÈS
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 🕒 Temps total Snowflake: 53.10s
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - 📊 Total lignes insérées: 19,462
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ⚡ Débit: 367 rows/sec
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mINFO[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - mns_f_utilisation_equipement - ================================================================================
+
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mDEBUG[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - 554792 - mns_f_utilisation_equipement - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+2026-02-27 17:34:55,832 - INFO - Context impl SQLiteImpl.
+2026-02-27 17:34:55,832 - INFO - Will assume non-transactional DDL.
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mDEBUG[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - 554792 - mns_f_utilisation_equipement - ASSET_MATERIALIZATION - Materialized value mns_f_utilisation_equipement.
+[32m2026-02-27 17:34:55 +0000[0m - dagster - [34mDEBUG[0m - mns_f_utilisation_equipement_job - 932e5bed-acb1-490a-9b21-dc01f682cdb8 - 554792 - mns_f_utilisation_equipement - STEP_SUCCESS - Finished execution of step "mns_f_utilisation_equipement" in 51.71s.

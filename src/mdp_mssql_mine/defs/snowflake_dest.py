@@ -33,7 +33,7 @@ def get_snowflake_connection(database: str = Config.SF_DATABASE, schema: str = C
     )
 
 
-def create_file_format(cursor, logger):
+def create_file_format(cursor,database: str, schema: str, logger):
     """
     Créer le format de fichier CSV s'il n'existe pas déjà --- on pourrait aussi utiliser parquet à la place
     Équivalent: CREATE OR REPLACE FILE FORMAT...
@@ -42,7 +42,7 @@ def create_file_format(cursor, logger):
     logger.info("🔧 Création du file format CSV...")
     
     sql = f"""
-    CREATE FILE FORMAT IF NOT EXISTS {Config.FILE_FORMAT_NAME}
+    CREATE FILE FORMAT IF NOT EXISTS {database}.{schema}.{Config.FILE_FORMAT_NAME}
         TYPE = CSV
         FIELD_DELIMITER = '|'
         SKIP_HEADER = 1
@@ -56,7 +56,7 @@ def create_file_format(cursor, logger):
     logger.info(f"✅ File format {Config.FILE_FORMAT_NAME} créé")
 
 
-def create_stage(cursor, logger):
+def create_stage(cursor,database: str, schema: str,logger):
     """
     Créer le stage interne s'il n'existe pas déjà dans le schéma
     Équivalent: CREATE OR REPLACE STAGE...
@@ -65,7 +65,7 @@ def create_stage(cursor, logger):
     logger.info("🔧 Création du stage...")
     
     sql = f"""
-    CREATE STAGE IF NOT EXISTS {Config.STAGE_NAME}
+    CREATE STAGE IF NOT EXISTS {database}.{schema}.{Config.STAGE_NAME}
         FILE_FORMAT = {Config.FILE_FORMAT_NAME}
     """
     
@@ -137,8 +137,10 @@ def setup_snowflake(
     cursor = conn.cursor()
     
     try:
-        create_file_format(cursor, logger)
-        create_stage(cursor, logger)
+    
+        create_file_format(cursor,database = snowflake_database, schema = snowflake_schema, logger=logger)
+    
+        create_stage(cursor,database = snowflake_database, schema = snowflake_schema, logger=logger)
         create_snowflake_table(
             cursor = cursor, 
             database = snowflake_database, #"NEEMBA",

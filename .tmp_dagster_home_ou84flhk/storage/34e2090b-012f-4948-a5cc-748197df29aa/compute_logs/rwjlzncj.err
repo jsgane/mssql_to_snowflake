@@ -1,0 +1,101 @@
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mDEBUG[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - 557972 - LOGS_CAPTURED - Started capturing logs in process (pid: 557972).
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mDEBUG[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - 557972 - ref_vw_nba_machines - STEP_START - Started execution of step "ref_vw_nba_machines".
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 
+================================================================================
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🚀 PIPELINE MSSQL → SNOWFLAKE
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📤➡️❄️  Méthode: BCP + COPY INTO
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📤 Export BCP depuis SQL Server pour la table ref_vw_nba_machines
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🗑️  Fichier existant supprimé: /tmp/mssql_export.csv
+2026-02-27 17:35:22,516 - INFO - 🔧 BCPExporter initialisé:
+2026-02-27 17:35:22,516 - INFO -    Mode: Natif
+2026-02-27 17:35:22,516 - INFO -    BCP: bcp
+[32m2026-02-27 17:35:22 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔄 Exécution BCP...
+2026-02-27 17:35:22,539 - INFO - 💻 Mode natif
+2026-02-27 17:35:22,539 - INFO - 🔄 Commande BCP: bcp SELECT TOP 10000000 * FROM ref_vw_nba_machines WITH (NOLOCK) queryout /tmp/mssql_export.csv -c -C 65001 -t | -r 
+ -b 100000 -a 32767 -S *** -d *** -U *** -P ***
+2026-02-27 17:35:25,487 - INFO - BCP STDOUT:
+
+Starting copy...
+SQLState = S1000, NativeError = 0
+Error = [Microsoft][ODBC Driver 18 for SQL Server]Warning: BCP import with a format file will convert empty strings in delimited columns to NULL.
+1000 rows successfully bulk-copied to host-file. Total received: 1000
+
+1962 rows copied.
+Network packet size (bytes): 32576
+Clock Time (ms.) Total     : 1387   Average : (1414.6 rows per sec.)
+
+2026-02-27 17:35:25,487 - INFO - ✅ Export BCP réussi: Durée 2.95s, Taille 0.17 MB
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ Export BCP terminé en 2.95s
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines -    Temps BCP: 2.95s
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines -    Fichier: /tmp/mssql_export.csv
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines -    Taille: 0.17 MB
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔧 Setup Snowflake
+[32m2026-02-27 17:35:25 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+2026-02-27 17:35:25,599 - INFO - Snowflake Connector for Python Version: 4.3.0, Python Version: 3.12.3, Platform: Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39
+2026-02-27 17:35:25,600 - INFO - Connecting to GLOBAL Snowflake domain
+[32m2026-02-27 17:35:46 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔧 Création du file format CSV...
+[32m2026-02-27 17:35:46 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ File format mssql_csv_file_format créé
+[32m2026-02-27 17:35:46 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔧 Création du stage...
+[32m2026-02-27 17:35:47 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ Stage MSSQL_DIRECT_STAGE créé
+[32m2026-02-27 17:35:47 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔧 Création de la table NEEMBA.MINES.ref_vw_nba_machines...
+2026-02-27 17:35:47,229 - INFO - 🔧 Génération DDL: a_bronze_ref_vw_nba_machines
+2026-02-27 17:35:47,229 - INFO - 📋 Extraction du schéma: ref_vw_nba_machines
+2026-02-27 17:35:49,460 - INFO - ✅ 13 colonnes extraites
+2026-02-27 17:35:49,527 - INFO - ✅ DDL généré (13 colonnes)
+ CREATE OR REPLACE TABLE NEEMBA.MINES.a_bronze_ref_vw_nba_machines (
+    NeembaEquipmentID NUMBER(10,0) NULL,
+    MineStarOID VARCHAR(20),
+    SiteCode VARCHAR(20) NULL,
+    SiteDesc VARCHAR(100),
+    SiteID NUMBER(10,0) NULL,
+    Category VARCHAR(101),
+    Model VARCHAR(25),
+    SerialNumber VARCHAR(25),
+    FleetName VARCHAR(25) NULL,
+    MineStarSerialNumber VARCHAR(25),
+    Manufacturer VARCHAR(100),
+    NominalPayload VARCHAR(20),
+    EquipmentStatus VARCHAR(8) NULL
+)
+[32m2026-02-27 17:35:49 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ Table ref_vw_nba_machines créée avec succès
+[32m2026-02-27 17:35:49 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines -    Localisation: NEEMBA.MINES.ref_vw_nba_machines
+[32m2026-02-27 17:35:50 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:35:50 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔧 Upload + copy into Snowflake
+[32m2026-02-27 17:35:50 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+2026-02-27 17:35:50,051 - INFO - Snowflake Connector for Python Version: 4.3.0, Python Version: 3.12.3, Platform: Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39
+2026-02-27 17:35:50,052 - INFO - Connecting to GLOBAL Snowflake domain
+[32m2026-02-27 17:36:11 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:36:11 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📤 Upload vers Snowflake Stage
+[32m2026-02-27 17:36:11 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:36:12 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔄 Upload de mssql_export.csv...
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ Upload terminé en 2.18s
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📁 Fichiers dans le stage: 1
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - Connexion fermées dans la fonction qui appelle
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📥 COPY INTO Snowflake
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+[32m2026-02-27 17:36:14 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🔄 Chargement dans a_bronze_ref_vw_nba_machines...
+[32m2026-02-27 17:36:15 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines -    ✓ mssql_direct_stage/mssql_export.csv.gz: 1,961 lignes
+[32m2026-02-27 17:36:15 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ COPY INTO terminé en 1.35s
+[32m2026-02-27 17:36:15 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📊✅ Nombre de lignes chargées : 1,961
+[32m2026-02-27 17:36:15 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📊❌ Nombre d'erreurs : 0
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📊 Total dans la table a_bronze_ref_vw_nba_machines: 1,961
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - Connexion fermées dans la fonction qui appelle
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 
+================================================================================
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ✅ PIPELINE TERMINÉ AVEC SUCCÈS
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 🕒 Temps total Snowflake: 53.97s
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - 📊 Total lignes insérées: 1,961
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ⚡ Débit: 36 rows/sec
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mINFO[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - ref_vw_nba_machines - ================================================================================
+
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mDEBUG[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - 557972 - ref_vw_nba_machines - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+2026-02-27 17:36:16,459 - INFO - Context impl SQLiteImpl.
+2026-02-27 17:36:16,460 - INFO - Will assume non-transactional DDL.
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mDEBUG[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - 557972 - ref_vw_nba_machines - ASSET_MATERIALIZATION - Materialized value ref_vw_nba_machines.
+[32m2026-02-27 17:36:16 +0000[0m - dagster - [34mDEBUG[0m - ref_vw_nba_machines_job - 34e2090b-012f-4948-a5cc-748197df29aa - 557972 - ref_vw_nba_machines - STEP_SUCCESS - Finished execution of step "ref_vw_nba_machines" in 53.39s.

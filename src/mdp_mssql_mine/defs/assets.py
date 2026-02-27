@@ -30,7 +30,7 @@ def mns_d_site_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult
     """Equipment from MSSQL"""
     result = extract_mssql_data(
         snowflake_database = "NEEMBA",
-        snowflake_schema = "MINE", 
+        snowflake_schema = "MINES", 
         mssql_table_name = "mns_d_site",
         snowflake_table_name = "a_bronze_mns_d_site",
         logger = context.log,
@@ -51,7 +51,7 @@ def mns_f_utilisation_equipement_assets(context: dg.AssetExecutionContext) -> dg
     """mns_f_utilisation_equipement from MSSQL"""
     result = extract_mssql_data(
         snowflake_database = "NEEMBA",
-        snowflake_schema = "MINE", 
+        snowflake_schema = "MINES", 
         mssql_table_name = "mns_f_utilisation_equipement",
         snowflake_table_name = "a_bronze_mns_f_utilisation_equipement",
         logger = context.log,
@@ -71,7 +71,7 @@ def ref_vw_nba_machines_assets(context: dg.AssetExecutionContext) -> dg.Material
     """ref_vw_nba_machines from MSSQL"""
     result = extract_mssql_data(
         snowflake_database = "NEEMBA",
-        snowflake_schema = "MINE", 
+        snowflake_schema = "MINES", 
         mssql_table_name = "ref_vw_nba_machines",
         snowflake_table_name = "a_bronze_ref_vw_nba_machines",
         logger = context.log,
