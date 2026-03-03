@@ -21,3 +21,9 @@ sources:
 
       - name: c_gold_mts_vw_tum_kpis
         description: "C_gold_mts_vw_tum_kpis information (Source:  [Mine_site].[dbo].[dbo].[mts_vw_tum_kpis] )"
+
+      - name: a_bronze_ref_vw_nba_machines
+        description: "ref_vw_nba_machines information (Source:  [NMBMTS].[dbo].[ref_vw_nba_machines] )"
+
+      - name: b_silver_mts_vw_last_dataset_and_smu
+        description: "mts_vw_last_dataset_and_smu information (Source:  [NMBMTS].[dbo].[mts_vw_last_dataset_and_smu] )"
