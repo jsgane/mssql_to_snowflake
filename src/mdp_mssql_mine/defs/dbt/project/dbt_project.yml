@@ -56,7 +56,7 @@ models:
         +tags: ["silver", "mts_vw_last_dataset_and_smu"]
         +docs:
           node_color: "#4CAF50"
-          
+
     ### GOLD
     gold:
       +materialized: table
@@ -72,6 +72,13 @@ models:
         fact_tum_kpis:
           +alias: "fact_tum_kpis"
         +tags: ["gold", "fact_tum_kpis"]
+        +docs:
+          node_color: "#FFD700"
+          
+      fact_machine:
+        fact_machine:
+          +alias: "fact_machine"
+        +tags: ["gold", "fact_machine"]
         +docs:
           node_color: "#FFD700"
       
