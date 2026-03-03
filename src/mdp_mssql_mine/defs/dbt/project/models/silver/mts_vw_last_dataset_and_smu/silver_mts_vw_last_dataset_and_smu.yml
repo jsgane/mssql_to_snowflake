@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: silver_mts_vw_last_dataset_and_smu
+    description: |
+      mts_vw_down_event_history from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all mts_vw_down_event_history. 
+      Sourced from mssql.
+
+    config:
+      tags: ["silver", "mts_vw_down_event_history"]
+    
+    columns:
+      - name: neembeequipmentid
+        description: "Surrogate key identifying the equipment in the Neemba system."
+
+      - name: serialnumber
+        description: "Equipment serial number as recorded in the source system."
+
+      - name: lastdatasettime
+        description: "Timestamp of the most recent SMU data received from the source system."
+
+      - name: smu
+        description: "Service Meter Units (SMU) value representing the latest recorded equipment usage."
+
+      - name: source
+        description: "Name of the source system providing the SMU data (e.g., VisionLink)."
+              
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

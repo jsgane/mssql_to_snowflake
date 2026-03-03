@@ -1,18 +1,17 @@
--- created_at: 2026-03-03T14:01:15.002089300+00:00
--- finished_at: 2026-03-03T14:01:16.776905555+00:00
--- elapsed: 1.8s
--- outcome: success
--- dialect: snowflake
--- node_id: not available
--- query_id: not available
--- desc: dbt run query
-select * from (select * from (
+{{ 
+    config(
+        materialized= "view",
+        tags= ["silver", "mts_vw_down_event_history"]
+    )
+}}
+
+
 with equ_f_smu_localisation as (
-    select * from NEEMBA.mines.b_silver_equ_f_smu_localisation
+    select * from {{ source('bronze', 'b_silver_equ_f_smu_localisation') }}
 ),
 
 equ_d_equipement as (
-    select * from NEEMBA.mines.b_silver_equ_d_equipement
+    select * from {{ source('bronze', 'b_silver_equ_d_equipement') }}
 ),
 
 cte_smu_localisation as (
@@ -51,7 +50,7 @@ silver_mts_vw_last_dataset_and_smu as (
         ,current_timestamp()          as dbt_processed_at
         -- Metadata                                  
         ,'silver_ref_vw_nba_machines' as dbt_model_name
-        ,'b_silver_' as layer_prefix
+        ,'{{ var("silver_prefix") }}' as layer_prefix
         ,'ref_vw_nba_machines'        as business_domain
     
 	from cte_smu_localisation as smu_loc
@@ -61,5 +60,4 @@ silver_mts_vw_last_dataset_and_smu as (
 	where smu_loc.rn = 1
 
 )
-SELECT * FROM SILVER_MTS_VW_LAST_DATASET_AND_SMU
-) as __preview_sbq__ limit 1000) limit 10;
+select * from silver_mts_vw_last_dataset_and_smu

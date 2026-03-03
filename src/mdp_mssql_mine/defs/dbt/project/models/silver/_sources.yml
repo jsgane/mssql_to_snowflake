@@ -21,3 +21,9 @@ sources:
 
       - name: b_silver_mns_d_type_evenement_arret
         description: "Fact_Op_Hours information (Source:  NMBMTS.dbo.mns_d_type_evenement_arret)"
+
+      - name: b_silver_equ_f_smu_localisation
+        description: "equ_f_smu_localisation information (Source:  NMBMTS.dbo.equ_f_smu_localisation)"
+
+      - name: b_silver_equ_d_equipement
+        description: "equ_d_equipement information (Source:  NMBMTS.dbo.equ_d_equipement)"

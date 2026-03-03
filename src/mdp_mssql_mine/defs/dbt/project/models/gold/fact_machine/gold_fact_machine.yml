@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: fact_machine
+    description: |
+      fact_tum_kpis from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all fact_tum_kpis. 
+      Sourced from mssql.
+
+    config:
+      tags: ["silver", "fact_tum_kpis"]
+    
+    columns:
+      - name: siteid
+        description: "Surrogate key identifying the site."
+
+      - name: site
+        description: "Business code of the site."
+
+      - name: neembaequipmentid
+        description: "Surrogate key identifying the equipment in the Neemba system."
+
+      - name: month
+        description: "Reporting month in YYYY-MM format."
+
+      - name: hassmuformonth
+        description: "Flag indicating whether SMU or operating hours data exists for the equipment during the month (1 = yes, 0 = no)."
+
+      - name: daysinmonth
+        description: "Total number of calendar days in the reporting month."
+
+      - name: ct
+        description: "Calendar Time in hours for the reporting month (Days in Month multiplied by 24)."
+
+      - name: ot
+        description: "Total Operating Time in hours recorded for the equipment during the month."
+
+      - name: updt
+        description: "Total Unplanned Downtime in hours during the reporting month."
+
+      - name: pdt
+        description: "Total Planned Downtime in hours during the reporting month."
+
+      - name: upc
+        description: "Number of Unplanned Downtime events during the reporting month."
+
+      - name: pc
+        description: "Number of Planned Downtime events during the reporting month."
+
+      - name: mtbsafterpm
+        description: "Average Mean Time Between Stops (MTBS) in hours after a Preventive Maintenance (PM) event during the last 12 months."
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"
