@@ -263,12 +263,14 @@ def export_mssql_bcp(table_name: str, logger, top_n: int = 10000000) -> bool:
     logger.info("=" * 80)
     
     # Créer le répertoire de sortie si nécessaire
-    Config.OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ##Config.OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH = Path(os.getenv("OUTPUT_PATH", f"/tmp/mssql_export_{table_name}.csv"))   
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     
     # Supprimer le fichier existant
-    if Config.OUTPUT_PATH.exists():
-        Config.OUTPUT_PATH.unlink()
-        logger.info(f"🗑️  Fichier existant supprimé: {Config.OUTPUT_PATH}")
+    if OUTPUT_PATH.exists():
+        OUTPUT_PATH.unlink()
+        logger.info(f"🗑️  Fichier existant supprimé: {OUTPUT_PATH}")
     
     # Créer l'exporter BCP
     exporter = BCPExporter(
@@ -287,7 +289,7 @@ def export_mssql_bcp(table_name: str, logger, top_n: int = 10000000) -> bool:
         # Export BCP (retourne success, durée, taille)
         success, bcp_duration, file_size_mb = exporter.export(
             table_name=table_name,
-            output_path=Config.OUTPUT_PATH,
+            output_path=OUTPUT_PATH,
             delimiter=Config.DELIMITER,
             top_n=top_n
         )
@@ -297,7 +299,7 @@ def export_mssql_bcp(table_name: str, logger, top_n: int = 10000000) -> bool:
         # Log des informations
         logger.info(f"✅ Export BCP terminé en {total_duration:.2f}s")
         logger.info(f"   Temps BCP: {bcp_duration:.2f}s")
-        logger.info(f"   Fichier: {Config.OUTPUT_PATH}")
+        logger.info(f"   Fichier: {OUTPUT_PATH}")
         logger.info(f"   Taille: {file_size_mb:.2f} MB")
         
         return success

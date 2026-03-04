@@ -131,6 +131,113 @@ def mns_d_type_evenement_arret_assets(context: dg.AssetExecutionContext) -> dg.M
         }
     )  
 
+@dg.asset(
+    name="diag_f_alerte",
+    group_name="data_for_mine",
+    description="Diag_f_alerte from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def diag_f_alerte_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """diag_f_alerte from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "diag_f_alerte",
+        snowflake_table_name = "b_silver_diag_f_alerte",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+@dg.asset(
+    name="diag_d_diagnostique_cid",
+    group_name="data_for_mine",
+    description="diag_d_diagnostique_cid from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def diag_d_diagnostique_cid_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """diag_d_diagnostique_cid from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "diag_d_diagnostique_cid",
+        snowflake_table_name = "b_silver_diag_d_diagnostique_cid",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+@dg.asset(
+    name="diag_d_diagnostique_eid",
+    group_name="data_for_mine",
+    description="diag_d_diagnostique_eid from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def diag_d_diagnostique_eid_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """diag_d_diagnostique_eid from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "diag_d_diagnostique_eid",
+        snowflake_table_name = "b_silver_diag_d_diagnostique_eid",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+@dg.asset(
+    name="diag_d_diagnostique_fmi",
+    group_name="data_for_mine",
+    description="diag_d_diagnostique_fmi from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def diag_d_diagnostique_fmi_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """diag_d_diagnostique_fmi from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "diag_d_diagnostique_fmi",
+        snowflake_table_name = "b_silver_diag_d_diagnostique_fmi",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+@dg.asset(
+    name="diag_d_diagnostique_mid",
+    group_name="data_for_mine",
+    description="diag_d_diagnostique_mid from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def diag_d_diagnostique_mid_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """diag_d_diagnostique_mid from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "diag_d_diagnostique_mid",
+        snowflake_table_name = "b_silver_diag_d_diagnostique_mid",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
 ##@dg.asset(
 ##    name="mts_vw_down_event_history",
 ##    group_name="data_for_mine",
