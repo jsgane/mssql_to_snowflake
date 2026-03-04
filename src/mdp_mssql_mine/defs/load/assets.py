@@ -3,7 +3,7 @@ from dagster import AssetExecutionContext, RetryPolicy
 from dagster_dlt import DagsterDltResource, dlt_assets
 import dlt
 import logging
-from mdp_mssql_mine.defs.load_bcp_copy_into import Config, extract_mssql_data
+from mdp_mssql_mine.defs.load.load_bcp_copy_into import Config, extract_mssql_data
 # Pipeline DLT
 pipeline = dlt.pipeline(
     pipeline_name="mssql_to_snowflake_pipeline",

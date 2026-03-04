@@ -5,7 +5,7 @@ from datetime import datetime
 import snowflake.connector
 from dotenv import load_dotenv
 import logging
-from mdp_mssql_mine.defs.config import Config, generate_snowflake_ddl 
+from mdp_mssql_mine.defs.load.config import Config, generate_snowflake_ddl 
 import os
 import subprocess
 import time

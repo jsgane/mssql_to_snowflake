@@ -6,9 +6,9 @@ from datetime import datetime
 import snowflake.connector
 from dotenv import load_dotenv
 import logging
-from mdp_mssql_mine.defs.config import Config, BCPExporter, export_mssql_bcp
+from mdp_mssql_mine.defs.load.config import Config, BCPExporter, export_mssql_bcp
 ##from mssql import export_mssql_bcp
-from mdp_mssql_mine.defs.snowflake_dest import setup_snowflake,upload_to_stage,copy_into_table,upload_to_snowflake
+from mdp_mssql_mine.defs.load.snowflake_dest import setup_snowflake,upload_to_stage,copy_into_table,upload_to_snowflake
 
 load_dotenv()
 logging.basicConfig(

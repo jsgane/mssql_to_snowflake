@@ -2,7 +2,7 @@ from pathlib import Path
 
 from dagster import Definitions, load_from_defs_folder, ScheduleDefinition, define_asset_job
 from dagster_dlt import DagsterDltResource
-from mdp_mssql_mine.defs.assets import(
+from mdp_mssql_mine.defs.load.assets import(
     mns_d_site_assets,
     mns_f_utilisation_equipement_assets,
     ref_vw_nba_machines_assets,
