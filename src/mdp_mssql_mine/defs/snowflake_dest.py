@@ -166,7 +166,7 @@ def setup_snowflake(
 
 # Upload du fichier dans le stage de snowflake avec la commande PUT==============
 
-def upload_to_stage(cursor, logger):
+def upload_to_stage(cursor, mssql_table_name: str, logger):
     """
     Upload du fichier vers le stage
     Équivalent: PUT file://... @STAGE AUTO_COMPRESS=TRUE
@@ -178,7 +178,8 @@ def upload_to_stage(cursor, logger):
         
     try:
         # PUT command (utiliser forward slashes)
-        file_path = str(Config.OUTPUT_PATH).replace("\\", "/")
+        OUTPUT_PATH = Path(os.getenv("OUTPUT_PATH", f"/tmp/mssql_export_{mssql_table_name}.csv"))  
+        file_path = str(OUTPUT_PATH).replace("\\", "/")
         
         sql_put = f"""
         PUT file://{file_path} @{Config.STAGE_NAME}
@@ -186,7 +187,7 @@ def upload_to_stage(cursor, logger):
         OVERWRITE=TRUE
         """
         
-        logger.info(f"🔄 Upload de {Config.OUTPUT_PATH.name}...")
+        logger.info(f"🔄 Upload de {OUTPUT_PATH.name}...")
         start_time = time.time()
         
         cursor.execute(sql_put)
@@ -273,6 +274,7 @@ def copy_into_table(cursor, snowflake_table_name: str, logger):
 
 ### Créer format de fichier, stage et table dans snowflake==============
 def upload_to_snowflake(
+    mssql_table_name: str,
     snowflake_table_name: str, 
     logger,
     snowflake_database: str = Config.SF_DATABASE,
@@ -290,7 +292,7 @@ def upload_to_snowflake(
     cursor = conn.cursor()
     
     try:
-        upload_to_stage(cursor, logger)
+        upload_to_stage(cursor,mssql_table_name= mssql_table_name, logger=logger)
         result = copy_into_table(cursor = cursor, snowflake_table_name = snowflake_table_name, logger = logger)
         return result
     finally:

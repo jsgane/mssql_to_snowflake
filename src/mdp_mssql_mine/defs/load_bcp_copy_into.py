@@ -51,7 +51,9 @@ def extract_mssql_data(
             mssql_table_name = mssql_table_name,
             logger = logger
         )
+        ## Load PUT + COPY INTO
         result = upload_to_snowflake(
+            mssql_table_name = mssql_table_name,
             snowflake_table_name = snowflake_table_name,
             snowflake_database = snowflake_database,
             snowflake_schema = snowflake_schema, 
