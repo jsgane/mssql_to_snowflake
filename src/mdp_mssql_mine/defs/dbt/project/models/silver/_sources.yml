@@ -27,3 +27,18 @@ sources:
 
       - name: b_silver_equ_d_equipement
         description: "equ_d_equipement information (Source:  NMBMTS.dbo.equ_d_equipement)"
+
+      - name: b_silver_diag_f_alerte
+        description: "diag_f_alerte information (Source:  NMBMTS.dbo.diag_f_alerte)"
+
+      - name: b_silver_diag_d_diagnostique_cid
+        description: "diag_d_diagnostique_cid information (Source:  NMBMTS.dbo.diag_d_diagnostique_cid)"
+
+      - name: b_silver_diag_d_diagnostique_eid
+        description: "diag_d_diagnostique_eid information (Source:  NMBMTS.dbo.diag_d_diagnostique_eid)"
+
+      - name: b_silver_diag_d_diagnostique_fmi
+        description: "diag_d_diagnostique_fmi information (Source:  NMBMTS.dbo.diag_d_diagnostique_fmi)"
+
+      - name: b_silver_diag_d_diagnostique_mid
+        description: "diag_d_diagnostique_mid information (Source:  NMBMTS.dbo.diag_d_diagnostique_mid)"

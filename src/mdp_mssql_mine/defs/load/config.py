@@ -37,13 +37,13 @@ class Config:
     DELIMITER = "|"
     
     # Snowflake
-    SF_ACCOUNT = os.getenv("SNOWFLAKE_ACCOUNT", "dg63583.eu-west-1")
-    SF_USER = os.getenv("SNOWFLAKE_USER", "neemba_user")
-    SF_PASSWORD = os.getenv("SNOWFLAKE_PASSWORD", "Neemb@Password2025")
-    SF_WAREHOUSE = os.getenv("SNOWFLAKE_WAREHOUSE", "compute_wh")
-    SF_DATABASE = os.getenv("SNOWFLAKE_DATABASE", "NEEMBA")
-    SF_SCHEMA = os.getenv("SNOWFLAKE_SCHEMA", "EQUIPEMENT")
-    SF_ROLE = os.getenv("SNOWFLAKE_ROLE", "transform")
+    SF_ACCOUNT = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__ACCOUNT", "dg63583.eu-west-1")
+    SF_USER = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__USER", "neemba_user")
+    SF_PASSWORD = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__PASSWORD", "Neemb@Password2025")
+    SF_WAREHOUSE = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__WAREHOUSE", "compute_wh")
+    SF_DATABASE = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__DATABASE", "NEEMBA")
+    SF_SCHEMA = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__SCHEMA", "MINES")
+    SF_ROLE = os.getenv("DESTINATION__SNOWFLAKE__CREDENTIALS__ROLE", "transform")
     
     # Stage et File Format
     FILE_FORMAT_NAME = "mssql_csv_file_format"

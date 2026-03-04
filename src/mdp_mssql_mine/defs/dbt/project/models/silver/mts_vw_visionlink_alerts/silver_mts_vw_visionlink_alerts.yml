@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: silver_mts_vw_visionlink_alerts 
+    description: |
+      mts_vw_visionlink_alerts from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "mts_vw_visionlink_alerts"]
+
+    columns:
+      - name: vale_code
+        description: "Business identifier of the event record."
+    
+      - name: vale_cid_sk
+        description: "Surrogate key referencing the CID diagnostic dimension."
+    
+      - name: serialnumber
+        description: "Equipment serial number associated with the event."
+    
+      - name: eventtimestamp
+        description: "Timestamp when the event was created in the source system."
+    
+      - name: vale_date_integration_heure
+        description: "Timestamp when the event was integrated into the data platform."
+    
+      - name: neembaequipmentid
+        description: "Surrogate key identifying the equipment in the Neemba system."
+    
+      - name: eventlevel
+        description: "Severity or level of the event as defined in the source system."
+    
+      - name: eventcount
+        description: "Number of occurrences recorded for the event."
+    
+      - name: sourcetype
+        description: "Origin of the data indicating the source system that generated the event."
+    
+      - name: eid_code
+        description: "Event Identifier (EID) code associated with the diagnostic event."
+    
+      - name: eid_description
+        description: "Description of the Event Identifier (EID) diagnostic code."
+    
+      - name: cid_code
+        description: "Component Identifier (CID) diagnostic code."
+    
+      - name: cid_description
+        description: "Description of the Component Identifier (CID) diagnostic code."
+    
+      - name: fmi_code
+        description: "Failure Mode Identifier (FMI) diagnostic code."
+    
+      - name: fmi_description
+        description: "Description of the Failure Mode Identifier (FMI) diagnostic code."
+    
+      - name: mid_code
+        description: "Module Identifier (MID) diagnostic code."
+    
+      - name: mid_description
+        description: "Description of the Module Identifier (MID) diagnostic code."
+            
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

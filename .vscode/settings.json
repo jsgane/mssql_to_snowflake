@@ -7,7 +7,9 @@
             },
             "snowflakeOptions": {
                 "clientSessionKeepAlive": true,
-                "clientSessionKeepAliveHeartbeatFrequency": 3600
+                "clientSessionKeepAliveHeartbeatFrequency": 3600,
+                "role": "transform",
+                "schema": "EQUIPEMENT"
             },
             "previewLimit": 50,
             "driver": "Snowflake",
