@@ -444,7 +444,7 @@ def extract_mssql_table_schema(table_name: str) -> List[Tuple[str, str]]:
     
     engine = get_mssql_engine()
     
-    # ✅ CORRECTION: Utiliser with + text()
+    # 
     sql_query = text("""
         SELECT 
             COLUMN_NAME,
@@ -505,8 +505,8 @@ def extract_mssql_table_schema(table_name: str) -> List[Tuple[str, str]]:
 def generate_snowflake_ddl(
     mssql_table_name: str,
     snowflake_table_name: str,
-    snowflake_database: str = "NEEMBA",
-    snowflake_schema: str = "EQUIPEMENT"
+    snowflake_database: str = Config.SF_DATABASE,
+    snowflake_schema: str = Config.SF_SCHEMA
 ) -> str:
     """
     Génère le DDL Snowflake

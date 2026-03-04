@@ -25,7 +25,7 @@ retry_policy = RetryPolicy(
     name="mns_d_site",
     group_name="data_for_mine",
     description="Mns_d_site from MSSQL → Snowflake via BCP + COPY INTO",
-    kinds={"snowflake", "python", "sql"}
+    kinds={"snowflake", "python", "sql", "silver"}
 )
 def mns_d_site_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
     """Equipment from MSSQL"""
@@ -47,7 +47,7 @@ def mns_d_site_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult
     name="mns_f_utilisation_equipement",
     group_name="data_for_mine",
     description="Mns_f_utilisation_equipement from MSSQL → Snowflake via BCP + COPY INTO",
-    kinds={"snowflake", "python", "sql"}
+    kinds={"snowflake", "python", "sql", "silver"}
 )
 def mns_f_utilisation_equipement_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
     """mns_f_utilisation_equipement from MSSQL"""
@@ -69,7 +69,7 @@ def mns_f_utilisation_equipement_assets(context: dg.AssetExecutionContext) -> dg
     name="ref_vw_nba_machines",
     group_name="data_for_mine",
     description="Ref_vw_nba_machines from MSSQL → Snowflake via BCP + COPY INTO",
-    kinds={"snowflake", "python", "sql"}
+    kinds={"snowflake", "python", "sql", "silver"}
 )
 def ref_vw_nba_machines_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
     """ref_vw_nba_machines from MSSQL"""
@@ -91,7 +91,7 @@ def ref_vw_nba_machines_assets(context: dg.AssetExecutionContext) -> dg.Material
     name="mns_f_equipement_arret",
     group_name="data_for_mine",
     description="Mns_f_equipement_arret from MSSQL → Snowflake via BCP + COPY INTO",
-    kinds={"snowflake", "python", "sql"}
+    kinds={"snowflake", "python", "sql", "silver"}
 )
 def mns_f_equipement_arret_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
     """mns_f_equipement_arret_v_0_1 from MSSQL"""
@@ -113,7 +113,7 @@ def mns_f_equipement_arret_assets(context: dg.AssetExecutionContext) -> dg.Mater
     name="mns_d_type_evenement_arret",
     group_name="data_for_mine",
     description="Mns_d_type_evenement_arret from MSSQL → Snowflake via BCP + COPY INTO",
-    kinds={"snowflake", "python", "sql"}
+    kinds={"snowflake", "python", "sql", "silver"}
 )
 def mns_d_type_evenement_arret_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
     """mns_d_type_evenement_arret from MSSQL"""

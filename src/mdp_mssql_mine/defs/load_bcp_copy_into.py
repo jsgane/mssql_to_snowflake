@@ -22,11 +22,11 @@ logger = logging.getLogger(__name__)
 # PIPELINE COMPLET ================================================
 
 def extract_mssql_data(
-    snowflake_database: str,
-    snowflake_schema: str, 
     mssql_table_name: str, 
     snowflake_table_name: str,
-    logger
+    logger,
+    snowflake_database: str = Config.SF_DATABASE,
+    snowflake_schema: str = Config.SF_SCHEMA, 
 ):
     """
     Exécution complète du pipeline
@@ -45,16 +45,16 @@ def extract_mssql_data(
         export_mssql_bcp(table_name = mssql_table_name, logger = logger)
         # Setup Snowflake (Créer file_format, stage et table)
         setup_snowflake(
+            snowflake_table_name = snowflake_table_name,
             snowflake_database = snowflake_database,
             snowflake_schema = snowflake_schema, 
             mssql_table_name = mssql_table_name,
-            snowflake_table_name = snowflake_table_name,
             logger = logger
         )
         result = upload_to_snowflake(
+            snowflake_table_name = snowflake_table_name,
             snowflake_database = snowflake_database,
             snowflake_schema = snowflake_schema, 
-            snowflake_table_name = snowflake_table_name,
             logger = logger
         )
 
@@ -82,9 +82,9 @@ def extract_mssql_data(
 
 if __name__ == "__main__":
     extract_mssql_data(
+        snowflake_table_name = "AI_V_Inventory_Parts_Ops",
         snowflake_database = "NEEMBA",
         snowflake_schema = "EQUIPEMENT", 
         mssql_table_name = "V_Inventory_Parts_Ops",
-        snowflake_table_name = "AI_V_Inventory_Parts_Ops",
         logger = logger
     )

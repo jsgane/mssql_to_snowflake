@@ -33,7 +33,12 @@ def get_snowflake_connection(database: str = Config.SF_DATABASE, schema: str = C
     )
 
 
-def create_file_format(cursor,database: str, schema: str, logger):
+def create_file_format(
+    cursor,
+    logger,
+    database: str = Config.SF_DATABASE, 
+    schema: str = Config.SF_SCHEMA, 
+):
     """
     Créer le format de fichier CSV s'il n'existe pas déjà --- on pourrait aussi utiliser parquet à la place
     Équivalent: CREATE OR REPLACE FILE FORMAT...
@@ -56,7 +61,12 @@ def create_file_format(cursor,database: str, schema: str, logger):
     logger.info(f"✅ File format {Config.FILE_FORMAT_NAME} créé")
 
 
-def create_stage(cursor,database: str, schema: str,logger):
+def create_stage(
+    cursor, 
+    logger,
+    database: str = Config.SF_DATABASE, 
+    schema: str = Config.SF_SCHEMA, 
+):
     """
     Créer le stage interne s'il n'existe pas déjà dans le schéma
     Équivalent: CREATE OR REPLACE STAGE...
@@ -75,11 +85,11 @@ def create_stage(cursor,database: str, schema: str,logger):
 
 def create_snowflake_table(
     cursor,
-    database: str,
-    schema: str,
     mssql_table_name: str,
     snowflake_table_name: str, 
-    logger
+    logger,
+    database: str = Config.SF_DATABASE, 
+    schema: str = Config.SF_SCHEMA, 
 ) -> None:
     """
     Créer une table Snowflake avec schéma personnalisable
@@ -119,11 +129,11 @@ def create_snowflake_table(
 
 ### Créer format de fichier, stage et table dans snowflake==============
 def setup_snowflake(
-    snowflake_database: str,
-    snowflake_schema: str, 
     mssql_table_name: str, 
     snowflake_table_name: str, 
-    logger
+    logger,
+    snowflake_database: str = Config.SF_DATABASE,
+    snowflake_schema: str = Config.SF_SCHEMA, 
 ):
     """
     Setup des objets Snowflake
@@ -263,10 +273,10 @@ def copy_into_table(cursor, snowflake_table_name: str, logger):
 
 ### Créer format de fichier, stage et table dans snowflake==============
 def upload_to_snowflake(
-    snowflake_database: str,
-    snowflake_schema: str, 
     snowflake_table_name: str, 
-    logger
+    logger,
+    snowflake_database: str = Config.SF_DATABASE,
+    snowflake_schema: str = Config.SF_SCHEMA, 
 ):
     """
     Upload + copy into
