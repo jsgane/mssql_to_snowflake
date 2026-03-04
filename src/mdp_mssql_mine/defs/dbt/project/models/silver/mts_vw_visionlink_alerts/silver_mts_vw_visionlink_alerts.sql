@@ -10,19 +10,19 @@ with diag_f_alerte as (
     select * from {{ source('bronze', 'b_silver_diag_f_alerte') }}
 ),
 
-diag_f_alerte as (
+diag_d_diagnostique_cid as (
     select * from {{ source('bronze', 'b_silver_diag_d_diagnostique_cid') }}
 ),
 
-diag_f_alerte as (
+diag_d_diagnostique_eid as (
     select * from {{ source('bronze', 'b_silver_diag_d_diagnostique_eid') }}
 ),
 
-diag_f_alerte as (
+diag_d_diagnostique_fmi as (
     select * from {{ source('bronze', 'b_silver_diag_d_diagnostique_fmi') }}
 ),
 
-diag_f_alerte as (
+diag_d_diagnostique_mid as (
     select * from {{ source('bronze', 'b_silver_diag_d_diagnostique_mid') }}
 ),
 

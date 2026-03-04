@@ -56,6 +56,13 @@ models:
         +tags: ["silver", "mts_vw_last_dataset_and_smu"]
         +docs:
           node_color: "#4CAF50"
+      
+      mts_vw_visionlink_alerts:
+        silver_mts_vw_visionlink_alerts:
+          +alias: "b_silver_mts_vw_visionlink_alerts"
+        +tags: ["silver", "mts_vw_visionlink_alerts"]
+        +docs:
+          node_color: "#4CAF50"
 
     ### GOLD
     gold:
