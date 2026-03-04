@@ -68,6 +68,7 @@ models:
     gold:
       +materialized: table
       +tags: ["gold", "analytics"]
+      
       mts_vw_tum_kpis:
         gold_mts_vw_tum_kpis:
           +alias: "C_gold_mts_vw_tum_kpis"
@@ -86,6 +87,20 @@ models:
         fact_machine:
           +alias: "fact_machine"
         +tags: ["gold", "fact_machine"]
+        +docs:
+          node_color: "#FFD700"
+          
+      fact_vision_link_condition_monitoring:
+        fact_vision_link_condition_monitoring:
+          +alias: "fact_vision_link_condition_monitoring"
+        +tags: ["gold", "fact_vision_link_condition_monitoring"]
+        +docs:
+          node_color: "#FFD700"
+          
+      fact_smu:
+        fact_smu:
+          +alias: "fact_smu"
+        +tags: ["gold", "fact_smu"]
         +docs:
           node_color: "#FFD700"
       

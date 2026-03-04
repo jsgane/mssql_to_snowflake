@@ -3,13 +3,13 @@ version: 2
 models:
   - name: fact_machine
     description: |
-      fact_tum_kpis from mssql.
+      fact_machine from mssql.
 
-      This silver layer model provides a clean, business-friendly view of all fact_tum_kpis. 
+      This silver layer model provides a clean, business-friendly view of all fact_machine. 
       Sourced from mssql.
 
     config:
-      tags: ["silver", "fact_tum_kpis"]
+      tags: ["silver", "fact_machine"]
     
     columns:
       - name: sitedesc

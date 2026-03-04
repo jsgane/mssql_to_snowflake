@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: fact_smu
+    description: |
+      fact_smu from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all fact_smu. 
+      Sourced from mssql.
+
+    config:
+      tags: ["silver", "fact_smu"]
+    
+    columns:
+      - name: neembeequipmentid
+        description: "Unique identifier of the equipment in the Neemba system."
+    
+      - name: serialnumber
+        description: "Equipment serial number."
+    
+      - name: lastdatasettime
+        description: "Timestamp of the most recent dataset received for the equipment."
+    
+      - name: smu
+        description: "Service Meter Units value representing the accumulated operating time or usage of the equipment."
+    
+      - name: source
+        description: "Source system or origin of the dataset."
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

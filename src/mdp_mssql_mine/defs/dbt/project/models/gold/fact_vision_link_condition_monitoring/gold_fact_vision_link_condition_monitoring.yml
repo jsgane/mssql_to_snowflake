@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: fact_vision_link_condition_monitoring
+    description: |
+      fact_vision_link_condition_monitoring from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all fact_vision_link_condition_monitoring. 
+      Sourced from mssql.
+
+    config:
+      tags: ["silver", "fact_vision_link_condition_monitoring"]
+    
+    columns:
+      - name: vale_code
+        description: "Unique code identifying the VALE record."
+    
+      - name: vale_cid_sk
+        description: "Surrogate key linking the VALE record to the CID dimension."
+    
+      - name: serialnumber
+        description: "Equipment serial number associated with the event."
+    
+      - name: eventtimestamp
+        description: "Timestamp indicating when the event occurred."
+    
+      - name: vale_date_integration_heure
+        description: "Timestamp indicating when the VALE record was integrated into the system."
+    
+      - name: neembaequipmentid
+        description: "Unique identifier of the equipment in the Neemba system."
+    
+      - name: eventlevel
+        description: "Severity or level classification of the event."
+    
+      - name: eventcount
+        description: "Number of occurrences for the specific event."
+    
+      - name: sourcetype
+        description: "Source system or origin type of the event data."
+    
+      - name: eid_code
+        description: "Event Identifier (EID) code associated with the event."
+    
+      - name: eid_description
+        description: "Description of the Event Identifier (EID)."
+    
+      - name: cid_code
+        description: "Component Identifier (CID) code associated with the event."
+    
+      - name: cid_description
+        description: "Description of the Component Identifier (CID)."
+    
+      - name: fmi_code
+        description: "Failure Mode Identifier (FMI) code associated with the event."
+    
+      - name: fmi_description
+        description: "Description of the Failure Mode Identifier (FMI)."
+    
+      - name: mid_code
+        description: "Module Identifier (MID) code associated with the event."
+    
+      - name: mid_description
+        description: "Description of the Module Identifier (MID)."
+    
+      - name: yearmonth
+        description: "Year and month derived from eventtimestamp, formatted as YYYY-MM."
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

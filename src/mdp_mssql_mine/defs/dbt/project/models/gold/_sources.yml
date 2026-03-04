@@ -27,3 +27,6 @@ sources:
 
       - name: b_silver_mts_vw_last_dataset_and_smu
         description: "mts_vw_last_dataset_and_smu information (Source:  [NMBMTS].[dbo].[mts_vw_last_dataset_and_smu] )"
+
+      - name: b_silver_mts_vw_visionlink_alerts
+        description: "mts_vw_visionlink_alerts information (Source:  [NMBMTS].[dbo].[mts_vw_visionlink_alerts] )"
