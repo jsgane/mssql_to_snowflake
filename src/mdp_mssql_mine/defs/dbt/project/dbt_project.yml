@@ -64,6 +64,12 @@ models:
         +docs:
           node_color: "#4CAF50"
 
+      equipment_list_mining_prod:
+        silver_equipment_list_mining_prod:
+          +alias: "equipment_list_mining_prod"
+        +tags: ["silver", "equipment_list_mining_prod"]
+        +docs:
+          node_color: "#4CAF50"
     ### GOLD
     gold:
       +materialized: table
@@ -107,7 +113,7 @@ models:
 
 
 tests:
-  mdp_mssql_mine:
+  mssql_to_snowflake:
     +severity: warn
     +store_failures: true
 
@@ -121,7 +127,7 @@ vars:
 
 dispatch:
   - macro_namespace: dbt
-    search_order: ['mdp_mssql_mine', 'dbt']
+    search_order: ['mssql_to_snowflake', 'dbt']
 
 on-run-start:
   - "{{ log('========================================', info=true) }}"

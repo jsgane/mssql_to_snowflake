@@ -264,6 +264,340 @@ def v_metaform45_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResu
         }
     ) 
 
+@dg.asset(
+    name="v_metaform36",
+    group_name="data_for_mine",
+    description="v_metaform36 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform36_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform36 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform36",
+        snowflake_table_name = "b_silver_v_metaform36",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+@dg.asset(
+    name="v_metaform84",
+    group_name="data_for_mine",
+    description="v_metaform84 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform84_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform84 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform84",
+        snowflake_table_name = "b_silver_v_metaform84",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+@dg.asset(
+    name="v_metaform2405988",
+    group_name="data_for_mine",
+    description="v_metaform2405988 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform2405988_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform2405988 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform2405988",
+        snowflake_table_name = "b_silver_v_metaform2405988",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+@dg.asset(
+    name="v_metaform2404989",
+    group_name="data_for_mine",
+    description="v_metaform2404989 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform2404989_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform2404989 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform2404989",
+        snowflake_table_name = "b_silver_v_metaform2404989",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+@dg.asset(
+    name="v_metaform2405991",
+    group_name="data_for_mine",
+    description="v_metaform2405991 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform2405991_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform2405991 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform2405991",
+        snowflake_table_name = "b_silver_v_metaform2405991",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+@dg.asset(
+    name="v_metaform2406017",
+    group_name="data_for_mine",
+    description="v_metaform2406017 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform2406017_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform2406017 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform2406017",
+        snowflake_table_name = "b_silver_v_metaform2406017",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+##### BRONZE ASSETS USING BCP + COPY INTO
+
+
+@dg.asset(
+    name="EVENTCHAIN",
+    group_name="data_for_mine_bronze",
+    description="EVENTCHAIN from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def eventchain_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """EVENTCHAIN from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "dbo.EVENTCHAIN",
+        snowflake_table_name = "a_bronze_eventchain",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+@dg.asset(
+    name="EVENTCHAIN",
+    group_name="data_for_mine_bronze",
+    description="EVENTCHAIN from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def eventchain_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """EVENTCHAIN from MSSQL"""
+    result = extract_mssql_data(
+        mssql_table_name = "dbo.EVENTCHAIN",
+        snowflake_table_name = "a_bronze_eventchain",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+@dg.asset(
+    name="EVENT",
+    group_name="data_for_mine_bronze",
+    description="EVENT from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def event_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EVENT",
+        snowflake_table_name="a_bronze_event",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="EVENTTYPE",
+    group_name="data_for_mine_bronze",
+    description="EVENTTYPE from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def eventtype_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EVENTTYPE",
+        snowflake_table_name="a_bronze_eventtype",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="EVENTCHAINCMTVAL",
+    group_name="data_for_mine_bronze",
+    description="EVENTCHAINCMTVAL from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def eventchaincmtval_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EVENTCHAINCMTVAL",
+        snowflake_table_name="a_bronze_eventchaincmtval",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="EVENTCHAINTYPE",
+    group_name="data_for_mine_bronze",
+    description="EVENTCHAINTYPE from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def eventchaintype_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EVENTCHAINTYPE",
+        snowflake_table_name="a_bronze_eventchaintype",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="BUSINESS_UNIT",
+    group_name="data_for_mine_bronze",
+    description="BUSINESS_UNIT from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def business_unit_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.BUSINESS_UNIT",
+        snowflake_table_name="a_bronze_business_unit",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="BUSINESS_UNIT_TYPE",
+    group_name="data_for_mine_bronze",
+    description="BUSINESS_UNIT_TYPE from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def business_unit_type_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.BUSINESS_UNIT_TYPE",
+        snowflake_table_name="a_bronze_business_unit_type",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="EQUIP",
+    group_name="data_for_mine_bronze",
+    description="EQUIP from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def equip_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EQUIP",
+        snowflake_table_name="a_bronze_equip",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="EQUIPCMTVAL",
+    group_name="data_for_mine_bronze",
+    description="EQUIPCMTVAL from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def equipcmtval_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EQUIPCMTVAL",
+        snowflake_table_name="a_bronze_equipcmtval",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+
+@dg.asset(
+    name="EQUIPTYPE",
+    group_name="data_for_mine_bronze",
+    description="EQUIPTYPE from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def equiptype_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.EQUIPTYPE",
+        snowflake_table_name="a_bronze_equiptype",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
 
 ##@dg.asset(
 ##    name="mts_vw_down_event_history",

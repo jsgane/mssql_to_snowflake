@@ -12,10 +12,10 @@ with v_metaform45 as (
 
 silver_equipment_list_mining_prod as (
     select  
-        c_display_value2434480 as site,
+        display_value2434480 as site,
         c_463                  as equipment,
         c_464                  as equipid,
-        c_display_value465     as model,
+        display_value465     as model,
         c_2435669              as parentproductgroup,
         c_2433297              as sn,
         c_2435808              as brand,

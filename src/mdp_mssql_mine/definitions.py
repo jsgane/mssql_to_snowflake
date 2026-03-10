@@ -15,6 +15,19 @@ from mdp_mssql_mine.defs.load.assets import(
     diag_d_diagnostique_fmi_assets,
     diag_d_diagnostique_mid_assets,
     v_metaform45_assets,
+    v_metaform36_assets,
+    v_metaform84_assets,
+    # bronze assets
+    eventchain_assets,
+    event_assets,
+    eventtype_assets,
+    eventchaincmtval_assets,
+    eventchaintype_assets,
+    business_unit_assets,
+    business_unit_type_assets,
+    equip_assets,
+    equipcmtval_assets,
+    equiptype_assets,
 )
 
 ########  jobs
@@ -77,8 +90,65 @@ v_metaform45_job = define_asset_job(
     selection=[v_metaform45_assets],
 )
 
+v_metaform36_job = define_asset_job(
+    name="v_metaform36_job",
+    selection=[v_metaform36_assets],
+)
+v_metaform84_job = define_asset_job(
+    name="v_metaform84_job",
+    selection=[v_metaform84_assets],
+)
 
 
+eventchain_job = define_asset_job(
+    name="eventchain_assets_job",
+    selection=[eventchain_assets],
+)
+
+event_job = define_asset_job(
+    name="event_assets_job",
+    selection=[event_assets],
+)
+
+eventtype_job = define_asset_job(
+    name="eventtype_assets_job",
+    selection=[eventtype_assets],
+)
+
+eventchaincmtval_job = define_asset_job(
+    name="eventchaincmtval_assets_job",
+    selection=[eventchaincmtval_assets],
+)
+
+eventchaintype_job = define_asset_job(
+    name="eventchaintype_assets_job",
+    selection=[eventchaintype_assets],
+)
+
+business_unit_job = define_asset_job(
+    name="business_unit_assets_job",
+    selection=[business_unit_assets],
+)
+
+business_unit_type_job = define_asset_job(
+    name="business_unit_type_assets_job",
+    selection=[business_unit_type_assets],
+)
+
+equip_job = define_asset_job(
+    name="equip_assets_job",
+    selection=[equip_assets],
+)
+
+equipcmtval_job = define_asset_job(
+    name="equipcmtval_assets_job",
+    selection=[equipcmtval_assets],
+)
+
+equiptype_job = define_asset_job(
+    name="equiptype_assets_job",
+    selection=[equiptype_assets],
+)
 
 
 ####### schedule : every day
@@ -143,7 +213,66 @@ v_metaform45_schedule = ScheduleDefinition(
     cron_schedule="0 0 * * *", ## every day
 )
 
+v_metaform36_schedule = ScheduleDefinition(
+    job=v_metaform36_job,
+    cron_schedule="0 0 * * *", ## every day
+)
 
+v_metaform84_schedule = ScheduleDefinition(
+    job=v_metaform84_job,
+    cron_schedule="0 0 * * *", ## every day
+)
+
+
+eventchain_schedule = ScheduleDefinition(
+    job=eventchain_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+event_schedule = ScheduleDefinition(
+    job=event_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+eventtype_schedule = ScheduleDefinition(
+    job=eventtype_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+eventchaincmtval_schedule = ScheduleDefinition(
+    job=eventchaincmtval_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+eventchaintype_schedule = ScheduleDefinition(
+    job=eventchaintype_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+business_unit_schedule = ScheduleDefinition(
+    job=business_unit_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+business_unit_type_schedule = ScheduleDefinition(
+    job=business_unit_type_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+equip_schedule = ScheduleDefinition(
+    job=equip_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+equipcmtval_schedule = ScheduleDefinition(
+    job=equipcmtval_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
+equiptype_schedule = ScheduleDefinition(
+    job=equiptype_job,
+    cron_schedule="0 0 * * *",  # every day
+)
 ###### Defs
 defs = Definitions(
     jobs= [
@@ -159,6 +288,18 @@ defs = Definitions(
         diag_d_diagnostique_fmi_job,
         diag_d_diagnostique_mid_job,
         v_metaform45_job,
+        v_metaform36_job,
+        v_metaform84_job,
+        eventchain_job,
+        event_job,
+        eventtype_job,
+        eventchaincmtval_job,
+        eventchaintype_job,
+        business_unit_job,
+        business_unit_type_job,
+        equip_job,
+        equipcmtval_job,
+        equiptype_job,
     ],
     assets=[
         mns_d_site_assets,
@@ -173,6 +314,19 @@ defs = Definitions(
         diag_d_diagnostique_fmi_assets,
         diag_d_diagnostique_mid_assets,
         v_metaform45_assets,
+        v_metaform36_assets,
+        v_metaform84_assets,
+         # bronze assets
+        eventchain_assets,
+        event_assets,
+        eventtype_assets,
+        eventchaincmtval_assets,
+        eventchaintype_assets,
+        business_unit_assets,
+        business_unit_type_assets,
+        equip_assets,
+        equipcmtval_assets,
+        equiptype_assets,
     ],
     resources={
         "dlt":DagsterDltResource(),
@@ -190,6 +344,19 @@ defs = Definitions(
         diag_d_diagnostique_fmi_schedule,
         diag_d_diagnostique_mid_schedule,
         v_metaform45_schedule,
+        v_metaform36_schedule,
+        v_metaform84_schedule,
+         # bronze schedules
+        eventchain_schedule,
+        event_schedule,
+        eventtype_schedule,
+        eventchaincmtval_schedule,
+        eventchaintype_schedule,
+        business_unit_schedule,
+        business_unit_type_schedule,
+        equip_schedule,
+        equipcmtval_schedule,
+        equiptype_schedule,
     ]
 )
 
