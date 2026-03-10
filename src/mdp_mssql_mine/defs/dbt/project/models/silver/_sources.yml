@@ -45,3 +45,18 @@ sources:
 
       - name: b_silver_v_metaform45
         description: "v_metaform45 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform45)"
+
+      - name: b_silver_v_metaform36
+        description: "v_metaform36 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform36)"
+
+      - name: b_silver_v_metaform84
+        description: "v_metaform84 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform84)"
+
+      - name: b_silver_v_metaform2405988
+        description: "v_metaform2405988 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform2405988)"
+
+      - name: b_silver_v_metaform2404989
+        description: "v_metaform2404989 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform2404989)"
+
+      - name: b_silver_v_metaform2405991
+        description: "v_metaform2405991 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform2405991)"

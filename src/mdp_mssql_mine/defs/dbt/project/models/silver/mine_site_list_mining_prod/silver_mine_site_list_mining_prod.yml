@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: silver_mine_site_list_mining_prod
+    description: |
+      mine_site_list_mining_prodfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "mine_site_list_mining_prod"]
+
+    columns:
+      - name: country
+        description: "Country where the mining operation or project is located."
+
+      - name: underfpr
+        description: "Flag indicating whether the project is under the FPR program."
+
+      - name: minesite
+        description: "Name of the mine site."
+
+      - name: miningcontractor
+        description: "Mining contractor responsible for operations at the site."
+
+      - name: projectowner
+        description: "Owner of the mining project."
+
+      - name: focus
+        description: "Indicator showing whether the project is classified as a focus project."
+
+      - name: customercode
+        description: "Numeric identifier of the customer."
+
+      - name: customertype
+        description: "Category or type of customer."
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null      
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"  
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"      
+        
+      - name: business_domain
+        description: "Business domain classification"      

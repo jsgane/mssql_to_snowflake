@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: silver_model_list_mining_prod
+    description: |
+      model_list_mining_prodfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "equipment_list_mining_prod"]
+
+    columns:
+      - name: model
+        description: "Model identifier extracted from metaform field 356."
+
+      - name: type
+        description: "Equipment or asset type derived from metaform field 2433296."
+
+      - name: family
+        description: "Family classification derived from metaform field 2433294."
+
+      - name: primemovers
+        description: "Prime mover category extracted from metaform field 2435811."
+        
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

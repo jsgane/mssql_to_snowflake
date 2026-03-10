@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: silver_description_cat_list
+    description: |
+      description_cat_listfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "description_cat_list"]
+
+    columns:
+      - name: DescriptionCat
+        description: "DescriptionCat"
+
+      
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null      
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"  
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"      
+        
+      - name: business_domain
+        description: "Business domain classification"      

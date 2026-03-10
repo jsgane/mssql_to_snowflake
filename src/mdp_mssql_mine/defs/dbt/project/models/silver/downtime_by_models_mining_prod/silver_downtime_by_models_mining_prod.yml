@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: silver_downtime_by_models_mining_prod
+    description: |
+      downtime_by_models_mining_prodfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "downtime_by_models_mining_prod"]
+
+    columns:
+      - name: site
+        description: "Operational site where the downtime events were recorded."
+
+      - name: monthyear
+        description: "Month and year representing the reporting period."
+
+      - name: model
+        description: "Equipment model associated with the downtime events."
+
+      - name: totalhours
+        description: "Total downtime hours recorded for the period."
+
+      - name: numberofequip
+        description: "Number of distinct equipment units that experienced downtime."
+
+      - name: totalstoppage
+        description: "Total number of stoppage events recorded."
+
+      - name: totalstoppageunplanned
+        description: "Number of unplanned stoppage events."
+
+      - name: totalstoppageplanned
+        description: "Number of planned stoppage events."
+
+      - name: unplannedhours
+        description: "Total hours of downtime due to unplanned stoppages."
+
+      - name: plannedhours
+        description: "Total hours of downtime due to planned stoppages."
+
+      - name: monthlycalendarhour
+        description: "Total calendar hours in the given month."
+
+      - name: totalcalendarhours
+        description: "Total calendar hours available across all equipment units for the month."
+
+      - name: availability
+        description: "Equipment availability ratio calculated as (calendar hours minus downtime) divided by calendar hours."
+
+      - name: mttr
+        description: "Mean time to repair calculated as total downtime hours divided by number of stoppage events."
+        
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null      
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"  
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"      
+        
+      - name: business_domain
+        description: "Business domain classification"      

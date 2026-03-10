@@ -23,7 +23,7 @@ retry_policy = RetryPolicy(
 
 @dg.asset(
     name="mns_d_site",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="Mns_d_site from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -45,7 +45,7 @@ def mns_d_site_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult
 
 @dg.asset(
     name="mns_f_utilisation_equipement",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="Mns_f_utilisation_equipement from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -67,7 +67,7 @@ def mns_f_utilisation_equipement_assets(context: dg.AssetExecutionContext) -> dg
 
 @dg.asset(
     name="ref_vw_nba_machines",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="Ref_vw_nba_machines from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -89,7 +89,7 @@ def ref_vw_nba_machines_assets(context: dg.AssetExecutionContext) -> dg.Material
  
 @dg.asset(
     name="mns_f_equipement_arret",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="Mns_f_equipement_arret from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -111,7 +111,7 @@ def mns_f_equipement_arret_assets(context: dg.AssetExecutionContext) -> dg.Mater
  
 @dg.asset(
     name="mns_d_type_evenement_arret",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="Mns_d_type_evenement_arret from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -133,7 +133,7 @@ def mns_d_type_evenement_arret_assets(context: dg.AssetExecutionContext) -> dg.M
 
 @dg.asset(
     name="diag_f_alerte",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="Diag_f_alerte from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -154,7 +154,7 @@ def diag_f_alerte_assets(context: dg.AssetExecutionContext) -> dg.MaterializeRes
     ) 
 @dg.asset(
     name="diag_d_diagnostique_cid",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="diag_d_diagnostique_cid from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -175,7 +175,7 @@ def diag_d_diagnostique_cid_assets(context: dg.AssetExecutionContext) -> dg.Mate
     ) 
 @dg.asset(
     name="diag_d_diagnostique_eid",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="diag_d_diagnostique_eid from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -196,7 +196,7 @@ def diag_d_diagnostique_eid_assets(context: dg.AssetExecutionContext) -> dg.Mate
     ) 
 @dg.asset(
     name="diag_d_diagnostique_fmi",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="diag_d_diagnostique_fmi from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -219,7 +219,7 @@ def diag_d_diagnostique_fmi_assets(context: dg.AssetExecutionContext) -> dg.Mate
 
 @dg.asset(
     name="diag_d_diagnostique_mid",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="diag_d_diagnostique_mid from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -244,7 +244,7 @@ def diag_d_diagnostique_mid_assets(context: dg.AssetExecutionContext) -> dg.Mate
 ############################################""""""""""""""""""   
 @dg.asset(
     name="v_metaform45",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform45 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -266,7 +266,7 @@ def v_metaform45_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResu
 
 @dg.asset(
     name="v_metaform36",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform36 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -288,7 +288,7 @@ def v_metaform36_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResu
 
 @dg.asset(
     name="v_metaform84",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform84 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -310,7 +310,7 @@ def v_metaform84_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResu
 
 @dg.asset(
     name="v_metaform2405988",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform2405988 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -333,7 +333,7 @@ def v_metaform2405988_assets(context: dg.AssetExecutionContext) -> dg.Materializ
 
 @dg.asset(
     name="v_metaform2404989",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform2404989 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -356,7 +356,7 @@ def v_metaform2404989_assets(context: dg.AssetExecutionContext) -> dg.Materializ
 
 @dg.asset(
     name="v_metaform2405991",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform2405991 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -379,7 +379,7 @@ def v_metaform2405991_assets(context: dg.AssetExecutionContext) -> dg.Materializ
 
 @dg.asset(
     name="v_metaform2406017",
-    group_name="data_for_mine",
+    group_name="data_for_mine_silver",
     description="v_metaform2406017 from MSSQL → Snowflake via BCP + COPY INTO",
     kinds={"snowflake", "python", "sql", "silver"}
 )
@@ -601,7 +601,7 @@ def equiptype_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
 
 ##@dg.asset(
 ##    name="mts_vw_down_event_history",
-##    group_name="data_for_mine",
+##    group_name="data_for_mine_silver",
 ##    description="Mts_vw_down_event_history from MSSQL → Snowflake via BCP + COPY INTO",
 ##)
 ##def mts_vw_down_event_history_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:

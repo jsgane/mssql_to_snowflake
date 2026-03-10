@@ -17,6 +17,10 @@ from mdp_mssql_mine.defs.load.assets import(
     v_metaform45_assets,
     v_metaform36_assets,
     v_metaform84_assets,
+    v_metaform2405988_assets,
+    v_metaform2404989_assets,
+    v_metaform2405991_assets,
+    v_metaform2406017_assets,
     # bronze assets
     eventchain_assets,
     event_assets,
@@ -98,7 +102,26 @@ v_metaform84_job = define_asset_job(
     name="v_metaform84_job",
     selection=[v_metaform84_assets],
 )
+v_metaform2405988_job = define_asset_job(
+    name="v_metaform2405988_job",
+    selection=[v_metaform2405988_assets],
+)
 
+v_metaform2404989_job = define_asset_job(
+    name="v_metaform2404989_job",
+    selection=[v_metaform2404989_assets],
+)
+
+v_metaform2405991_job = define_asset_job(
+    name="v_metaform2405991_job",
+    selection=[v_metaform2405991_assets],
+)
+
+
+v_metaform2406017_job = define_asset_job(
+    name="v_metaform2406017_job",
+    selection=[v_metaform2406017_assets],
+)
 
 eventchain_job = define_asset_job(
     name="eventchain_assets_job",
@@ -224,6 +247,29 @@ v_metaform84_schedule = ScheduleDefinition(
 )
 
 
+
+v_metaform2405988_schedule = ScheduleDefinition(
+    job=v_metaform2405988_job,
+    cron_schedule="0 0 * * *", ## every day     
+)
+
+
+v_metaform2404989_schedule = ScheduleDefinition(
+    job=v_metaform2404989_job,
+    cron_schedule="0 0 * * *", ## every day     
+)
+
+
+v_metaform2405991_schedule = ScheduleDefinition(
+    job=v_metaform2405991_job,
+    cron_schedule="0 0 * * *", ## every day     
+)
+
+v_metaform2406017_schedule = ScheduleDefinition(
+    job=v_metaform2406017_job,
+    cron_schedule="0 0 * * *", ## every day     
+)
+
 eventchain_schedule = ScheduleDefinition(
     job=eventchain_job,
     cron_schedule="0 0 * * *",  # every day
@@ -290,6 +336,10 @@ defs = Definitions(
         v_metaform45_job,
         v_metaform36_job,
         v_metaform84_job,
+        v_metaform2405988_job,
+        v_metaform2404989_job,
+        v_metaform2405991_job,
+        v_metaform2406017_job,
         eventchain_job,
         event_job,
         eventtype_job,
@@ -316,6 +366,10 @@ defs = Definitions(
         v_metaform45_assets,
         v_metaform36_assets,
         v_metaform84_assets,
+        v_metaform2405988_assets,
+        v_metaform2404989_assets,
+        v_metaform2405991_assets,
+        v_metaform2406017_assets,
          # bronze assets
         eventchain_assets,
         event_assets,
@@ -346,6 +400,10 @@ defs = Definitions(
         v_metaform45_schedule,
         v_metaform36_schedule,
         v_metaform84_schedule,
+        v_metaform2405988_schedule,
+        v_metaform2404989_schedule,
+        v_metaform2405991_schedule,
+        v_metaform2406017_schedule,
          # bronze schedules
         eventchain_schedule,
         event_schedule,
