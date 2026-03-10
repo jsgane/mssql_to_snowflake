@@ -215,6 +215,8 @@ def diag_d_diagnostique_fmi_assets(context: dg.AssetExecutionContext) -> dg.Mate
             "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
         }
     ) 
+
+
 @dg.asset(
     name="diag_d_diagnostique_mid",
     group_name="data_for_mine",
@@ -228,6 +230,31 @@ def diag_d_diagnostique_mid_assets(context: dg.AssetExecutionContext) -> dg.Mate
         #snowflake_schema = "MINES", 
         mssql_table_name = "diag_d_diagnostique_mid",
         snowflake_table_name = "b_silver_diag_d_diagnostique_mid",
+        logger = context.log,
+    )
+
+    return dg.MaterializeResult(
+        metadata={
+            "rows_loaded": dg.MetadataValue.int(result["rows_loaded"]),
+        }
+    ) 
+
+
+
+############################################""""""""""""""""""   
+@dg.asset(
+    name="v_metaform45",
+    group_name="data_for_mine",
+    description="v_metaform45 from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "silver"}
+)
+def v_metaform45_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    """v_metaform45 from MSSQL"""
+    result = extract_mssql_data(
+        #snowflake_database = "NEEMBA",
+        #snowflake_schema = "MINES", 
+        mssql_table_name = "META_FORM_VIEW_SCHEMA.v_metaform45",
+        snowflake_table_name = "b_silver_v_metaform45",
         logger = context.log,
     )
 

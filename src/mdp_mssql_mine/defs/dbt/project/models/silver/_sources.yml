@@ -42,3 +42,6 @@ sources:
 
       - name: b_silver_diag_d_diagnostique_mid
         description: "diag_d_diagnostique_mid information (Source:  NMBMTS.dbo.diag_d_diagnostique_mid)"
+
+      - name: b_silver_v_metaform45
+        description: "v_metaform45 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform45)"

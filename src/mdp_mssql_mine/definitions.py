@@ -13,7 +13,8 @@ from mdp_mssql_mine.defs.load.assets import(
     diag_d_diagnostique_cid_assets,
     diag_d_diagnostique_eid_assets,
     diag_d_diagnostique_fmi_assets,
-    diag_d_diagnostique_mid_assets
+    diag_d_diagnostique_mid_assets,
+    v_metaform45_assets,
 )
 
 ########  jobs
@@ -70,6 +71,14 @@ diag_d_diagnostique_mid_job = define_asset_job(
     name="diag_d_diagnostique_mid_job",
     selection=[diag_d_diagnostique_fmi_assets],
 )
+
+v_metaform45_job = define_asset_job(
+    name="v_metaform45_job",
+    selection=[v_metaform45_assets],
+)
+
+
+
 
 
 ####### schedule : every day
@@ -129,7 +138,10 @@ diag_d_diagnostique_mid_schedule = ScheduleDefinition(
     cron_schedule="0 0 * * *", ## every day
 )
 
-
+v_metaform45_schedule = ScheduleDefinition(
+    job=v_metaform45_job,
+    cron_schedule="0 0 * * *", ## every day
+)
 
 
 ###### Defs
@@ -146,6 +158,7 @@ defs = Definitions(
         diag_d_diagnostique_cid_job,
         diag_d_diagnostique_fmi_job,
         diag_d_diagnostique_mid_job,
+        v_metaform45_job,
     ],
     assets=[
         mns_d_site_assets,
@@ -158,7 +171,8 @@ defs = Definitions(
         diag_d_diagnostique_cid_assets,
         diag_d_diagnostique_eid_assets,
         diag_d_diagnostique_fmi_assets,
-        diag_d_diagnostique_mid_assets
+        diag_d_diagnostique_mid_assets,
+        v_metaform45_assets,
     ],
     resources={
         "dlt":DagsterDltResource(),
@@ -175,6 +189,7 @@ defs = Definitions(
         diag_d_diagnostique_cid_schedule,
         diag_d_diagnostique_fmi_schedule,
         diag_d_diagnostique_mid_schedule,
+        v_metaform45_schedule,
     ]
 )
 

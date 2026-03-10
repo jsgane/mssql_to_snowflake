@@ -25,6 +25,7 @@ class Config:
     # SQL Server
     MSSQL_SERVER = os.getenv("MSSQL_SERVER", r"BODSQLDEV\DATAWH")
     MSSQL_DATABASE = os.getenv("MSSQL_DATABASE")
+    MSSQL_SCHEMA = os.getenv("MSSQL_SCHEMA", "dbo")
     MSSQL_USER = os.getenv("MSSQL_USER")
     MSSQL_PASSWORD = os.getenv("MSSQL_PASSWORD")
     
@@ -283,6 +284,8 @@ def export_mssql_bcp(table_name: str, logger, top_n: int = 10000000) -> bool:
     )
     
     logger.info(f"🔄 Exécution BCP...")
+    logger.info(f"   Database: {Config.MSSQL_DATABASE}")    
+    logger.info(f"   Table: {table_name}")
     start_time = time.time()
     
     try:
@@ -420,6 +423,15 @@ def map_mssql_to_snowflake(
 
 
 ## EXTRACTION DU SCHÉMA ==============
+def est_nombre(column_name: str) -> bool:
+    """
+    Retourne False si val est une chaîne et commence par une lettre.
+    Retourne True dans tous les autres cas (nombre, chaîne commençant par chiffre ou autre caractère).
+    """
+    if isinstance(column_name, str):
+        return not column_name[0].isalpha()  # False si commence par lettre
+    return True  # nombres et autres types → True
+
 def extract_mssql_table_schema(table_name: str) -> List[Tuple[str, str]]:
     """
     Extrait le schéma d'une table SQL Server
@@ -441,7 +453,7 @@ def extract_mssql_table_schema(table_name: str) -> List[Tuple[str, str]]:
     if '.' in table_name:
         schema_name, table_only = table_name.split('.', 1)
     else:
-        schema_name = 'dbo'
+        schema_name = Config.MSSQL_DATABASE #'dbo'
         table_only = table_name
     
     engine = get_mssql_engine()
@@ -471,7 +483,10 @@ def extract_mssql_table_schema(table_name: str) -> List[Tuple[str, str]]:
         columns = []
         
         for row in result:
-            col_name = row[0]
+            if est_nombre(row[0]):
+                col_name = f"C_{row[0]}"
+            else:
+                col_name = row[0]
             sql_type = row[1]
             max_length = row[2]
             precision = row[3]

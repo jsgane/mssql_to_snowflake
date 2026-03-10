@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: silver_equipment_list_mining_prod 
+    description: |
+      equipment_list_mining_prod from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "equipment_list_mining_prod"]
+
+    columns:
+      - name: Site
+        description: "Site display value"
+
+      - name: Equipment
+        description: "Equipment numeric code"
+
+      - name: EquipID
+        description: "Equipment ID numeric code"
+
+      - name: Model
+        description: "Model display value"
+
+      - name: ParentProductGroup
+        description: "Parent product group numeric code"
+
+      - name: SN
+        description: "Serial number"
+
+      - name: Brand
+        description: "Brand code"
+        
+      - name: Status
+        description: "Equipment status (-1 indicates inactive)"
+        
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"
