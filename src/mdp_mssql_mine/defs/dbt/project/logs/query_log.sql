@@ -1,117 +1,41 @@
--- created_at: 2026-03-11T13:20:19.884326156+00:00
--- finished_at: 2026-03-11T13:20:20.265644622+00:00
--- elapsed: 381ms
+-- created_at: 2026-03-11T14:43:23.288231151+00:00
+-- finished_at: 2026-03-11T14:43:23.807186604+00:00
+-- elapsed: 518ms
 -- outcome: success
 -- dialect: snowflake
 -- node_id: not available
--- query_id: 01c2f500-0209-71d5-0002-f322009c319e
--- desc: execute adapter call
-show terse schemas in database NEEMBA
-    limit 10000
-/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "mdp_mssql_mine", "target_name": "dev"} */;
--- created_at: 2026-03-11T13:20:21.289226455+00:00
--- finished_at: 2026-03-11T13:20:21.565078741+00:00
--- elapsed: 275ms
+-- query_id: 01c2f553-0209-6de9-0002-f322009c7436
+-- desc: Get table schema
+describe table "NEEMBA"."MINES"."VW_NOMBRE_ARRETS_REELS";
+-- created_at: 2026-03-11T14:43:26.673203579+00:00
+-- finished_at: 2026-03-11T14:43:28.627385986+00:00
+-- elapsed: 2.0s
 -- outcome: success
 -- dialect: snowflake
--- node_id: model.mdp_mssql_mine.connectivity
--- query_id: 01c2f500-0209-6de9-0002-f322009be676
--- desc: get_relation > list_relations call
-SHOW OBJECTS IN SCHEMA "NEEMBA"."MINES" LIMIT 10000;
--- created_at: 2026-03-11T13:20:21.570336500+00:00
--- finished_at: 2026-03-11T13:20:22.140032108+00:00
--- elapsed: 569ms
--- outcome: success
--- dialect: snowflake
--- node_id: model.mdp_mssql_mine.connectivity
--- query_id: 01c2f500-0209-71d5-0002-f322009c31a2
--- desc: execute adapter call
-create or replace   view NEEMBA.mines.connectivity
-  
-   as (
-    
-
-
-with vlinkdevice as (
-    select * from NEEMBA.mines.a_bronze_vlinkdevice
+-- node_id: not available
+-- query_id: not available
+-- desc: dbt run query
+select * from (select * from (
+with vw_nombre_arrets_reels as (
+    select * from NEEMBA.mines.vw_nombre_arrets_reels
 ),
 
-
-vlinkentete as (
-    select * from NEEMBA.mines.a_bronze_vlinkentete
-),
-
-
-device_status as (
-        select
-            ve.numeroseriesource as serialnumber,
-            left(ve.numeroseriesource, 3) as prefix,
-            vd.devicestatus as devicestatus,
-            ve.dateheurecreation as eventtime
-        from vlinkdevice vd
-        join vlinkentete ve
-          on vd.idvlinkentete = ve.idvlinkentete
-        where ve.dateheurecreation >= dateadd(day, -30, current_timestamp())
-),
-
-conn_kpi_agg as (
+nb_arrets_reels as (
     select
-        h.serialnumber,
-        h.prefix,
-        max(h.eventtime)                                                                         as lasteventtime30d,
-        max(case when h.devicestatus in ('Reporting','Not Expected to Report') 
-                 then 1 else 0 end)                                                              as hasreporting,
-        max(case when h.devicestatus in ('Not Reporting','Alternate Power','Awaiting to Report') 
-                 then 1 else 0 end)                                                              as hasconnected,
-        max(case when h.devicestatus in ('Reporting','Not Expected to Report') 
-                 then h.eventtime end)                                                           as lastreportingfamilytime,
-        max(case when h.devicestatus in ('Not Reporting','Alternate Power','Awaiting to Report') 
-                 then h.eventtime end)                                                           as lastconnectedfamilytime,
-        max(case when h.devicestatus not in (
-                    'Reporting','Not Expected to Report',
-                    'Not Reporting','Alternate Power','Awaiting to Report'
-                 ) then h.eventtime end)                                                         as lastnotconnectedfamilytime
-    from device_status h
-    group by h.serialnumber, h.prefix
-),
-
-
-connectivity as (
-    select
-        agg.serialnumber,
-        agg.prefix,
-        agg.lasteventtime30d,
-        case
-            when agg.hasreporting = 1 then 'Reporting'
-            when agg.hasconnected = 1 then 'Connected'
-            else 'Not Connected'
-        end                                                                as statusmachine,
-        case
-            when agg.hasreporting = 1 then agg.lastreportingfamilytime
-            when agg.hasconnected = 1 then agg.lastconnectedfamilytime
-            else agg.lastnotconnectedfamilytime
-        end                                                                as lastreportingtime,
-        datediff(
-            hour,
-            case
-                when agg.hasreporting = 1 then agg.lastreportingfamilytime
-                when agg.hasconnected = 1 then agg.lastconnectedfamilytime
-                else agg.lastnotconnectedfamilytime
-            end,
-            current_timestamp()
-        )                                                                  as hourssincelastreport
+        equipment_id,
+        equip,
+        site,
+        monthyear,
+        nombre_arrets_reels_total,
+        nombre_arrets_unplanned
 
         -- Audit and lineage fields
-        ,current_timestamp()                                               as dbt_processed_at
-        -- Metadata                                                               
-        ,'gold_connectivity'                                               as dbt_model_name
-        ,'c_gold_'                                        as layer_prefix
-        ,'connectivity'                                                    as business_domain
-    from conn_kpi_agg agg
+        ,current_timestamp()                as dbt_processed_at
+        -- Metadata                                
+        ,'gold_nb_arrets_reels'             as dbt_model_name
+        ,'c_gold_'         as layer_prefix
+        ,'nb_arrets_reels'                  as business_domain
+    from vw_nombre_arrets_reels
 )
-
-
-select * from connectivity
-
-  )
-/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.mdp_mssql_mine.connectivity", "profile_name": "mdp_mssql_mine", "target_name": "dev"} */;
+SELECT * FROM NB_ARRETS_REELS
+) as __preview_sbq__ limit 1000) limit 10;

@@ -7,7 +7,7 @@
 
 
 with mts_vw_visionlink_alerts as (
-    select * from {{ source('silver', 'b_silver_mts_vw_visionlink_alerts') }}
+    select * from {{ source('silver', 'mts_vw_visionlink_alerts') }}
 ),
 
 fact_vision_link_condition_monitoring as (

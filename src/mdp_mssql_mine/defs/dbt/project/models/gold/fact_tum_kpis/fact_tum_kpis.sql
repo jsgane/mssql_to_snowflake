@@ -7,7 +7,7 @@
 
 
 with mts_vw_down_event_history as (
-    select * from {{ source('silver', 'b_silver_mts_vw_down_event_history') }}
+    select * from {{ source('silver', 'mts_vw_down_event_history') }}
 ),
 
 mts_vw_tum_kpis as (

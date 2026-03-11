@@ -7,7 +7,7 @@
 
 
 with vw_mtbf_after_pm as (
-    select * from {{ source('silver', 'b_silver_vw_mtbf_after_pm') }}
+    select * from {{ source('silver', 'vw_mtbf_after_pm') }}
 ),
 
 mtbf_after_pm as (

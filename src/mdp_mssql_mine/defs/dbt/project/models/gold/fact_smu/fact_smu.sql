@@ -7,7 +7,7 @@
 
 
 with mts_vw_last_dataset_and_smu as (
-    select * from {{ source('silver', 'b_silver_mts_vw_last_dataset_and_smu') }}
+    select * from {{ source('silver', 'mts_vw_last_dataset_and_smu') }}
 ),
 
 

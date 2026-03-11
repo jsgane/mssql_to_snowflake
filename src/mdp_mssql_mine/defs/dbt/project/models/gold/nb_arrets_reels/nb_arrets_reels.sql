@@ -7,7 +7,7 @@
 
 
 with vw_nombre_arrets_reels as (
-    select * from {{ source('silver', 'b_silver_vw_nombre_arrets_reels') }}
+    select * from {{ source('silver', 'vw_nombre_arrets_reels') }}
 ),
 
 nb_arrets_reels as (

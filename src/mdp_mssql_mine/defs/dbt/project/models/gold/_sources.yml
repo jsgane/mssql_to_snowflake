@@ -16,7 +16,7 @@ sources:
       - name: FACT_OP_HOURS
         description: "Fact_Op_Hours information (Source:  [NMBMTS].[dbo].[ref_vw_nba_machines] )"
       
-      - name: b_silver_mts_vw_down_event_history
+      - name: mts_vw_down_event_history
         description: "Down_event_history information (Source:  [NMBMTS].[dbo].[mts_vw_down_event_history] )"
 
       - name: c_gold_mts_vw_tum_kpis
@@ -25,16 +25,16 @@ sources:
       - name: a_bronze_ref_vw_nba_machines
         description: "ref_vw_nba_machines information (Source:  [NMBMTS].[dbo].[ref_vw_nba_machines] )"
 
-      - name: b_silver_mts_vw_last_dataset_and_smu
+      - name: mts_vw_last_dataset_and_smu
         description: "mts_vw_last_dataset_and_smu information (Source:  [NMBMTS].[dbo].[mts_vw_last_dataset_and_smu] )"
 
-      - name: b_silver_mts_vw_visionlink_alerts
+      - name: mts_vw_visionlink_alerts
         description: "mts_vw_visionlink_alerts information (Source:  [NMBMTS].[dbo].[mts_vw_visionlink_alerts] )"
 
-      - name: b_silver_vw_mtbf_after_pm
+      - name: vw_mtbf_after_pm
         description: "b_silver_vw_mtbf_after_pm information (Source:  mineprod.dbo.vw_mtbf_after_pm )"
       
-      - name: b_silver_vw_nombre_arrets_reels
+      - name: vw_nombre_arrets_reels
         description: "b_silver_vw_nombre_arrets_reels information (Source:  mineprod.dbo.vw_nombre_arrets_reels )"
 
   - name: bronze
