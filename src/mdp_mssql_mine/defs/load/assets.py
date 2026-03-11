@@ -1,6 +1,7 @@
 import dagster as dg
 from dagster import AssetExecutionContext, RetryPolicy
 from dagster_dlt import DagsterDltResource, dlt_assets
+from pathlib import Path
 import dlt
 import logging
 from mdp_mssql_mine.defs.load.load_bcp_copy_into import Config, extract_mssql_data
@@ -631,6 +632,7 @@ def vlinkentete_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResul
     return dg.MaterializeResult(
         metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
     )
+
 
 
 ##@dg.asset(

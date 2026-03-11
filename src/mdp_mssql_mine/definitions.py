@@ -2,6 +2,9 @@ from pathlib import Path
 
 from dagster import Definitions, load_from_defs_folder, ScheduleDefinition, define_asset_job
 from dagster_dlt import DagsterDltResource
+from dagster_dbt import DbtCliResource
+
+### Load assets
 from mdp_mssql_mine.defs.load.assets import(
     mns_d_site_assets,
     mns_f_utilisation_equipement_assets,
@@ -34,7 +37,13 @@ from mdp_mssql_mine.defs.load.assets import(
     equiptype_assets,
     vlinkdevice_assets,
     vlinkentete_assets,
+    ## dbt assets
 )
+
+#### DBT assets, job and sensors
+
+from mdp_mssql_mine.defs.dbt.dbt_assets import customer_type_performance_target_asset
+
 
 ########  jobs
 mns_d_site_job = define_asset_job(
@@ -372,6 +381,11 @@ defs = Definitions(
         equiptype_job,
         vlinkdevice_job,
         vlinkentete_job,
+
+        # dbt silver jobs
+        #refresh_customer_type_performance_target_job,
+
+        # dbt gold jobs
     ],
     assets=[
         mns_d_site_assets,
@@ -405,9 +419,16 @@ defs = Definitions(
         equiptype_assets,
         vlinkdevice_assets,
         vlinkentete_assets,
+
+        # dbt silver assets
+        customer_type_performance_target_asset,
+
+        # dnt gold assets
+
     ],
     resources={
         "dlt":DagsterDltResource(),
+        "dbt": DbtCliResource(project_dir="src/mdp_mssql_mine/defs/dbt/project"),
     },
     schedules = [
         mns_d_site_schedule,
@@ -441,7 +462,11 @@ defs = Definitions(
         equiptype_schedule,
         vlinkdevice_schedule,
         vlinkentete_schedule,
-    ]
+    ],
+
+    sensors = [
+            #customer_type_performance_target_sensor,
+    ],
 )
 
 

@@ -10,6 +10,8 @@ from dagster import (
 )
 
 from .execute_dbt_job import execute_dbt
+import os
+
 
 
 def create_dbt_asset(
@@ -67,7 +69,7 @@ def create_dbt_asset(
         group_name=group_name,
         kinds={"snowflake", "dbt"},
         deps=deps,
-        required_resource_keys={"snowflake"},
+        #required_resource_keys={"snowflake"},
     )
     def dbt_asset(context: AssetExecutionContext) -> Output[Dict[str, Any]]:
         """Execute dbt model and collect metadata."""
