@@ -377,6 +377,7 @@ def v_metaform2405991_assets(context: dg.AssetExecutionContext) -> dg.Materializ
     ) 
 
 
+
 @dg.asset(
     name="v_metaform2406017",
     group_name="data_for_mine_silver",

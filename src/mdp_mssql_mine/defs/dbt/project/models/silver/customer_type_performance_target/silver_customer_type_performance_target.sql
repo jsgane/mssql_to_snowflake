@@ -1,63 +1,37 @@
--- created_at: 2026-03-11T12:29:03.793168206+00:00
--- finished_at: 2026-03-11T12:29:04.093724413+00:00
--- elapsed: 300ms
--- outcome: success
--- dialect: snowflake
--- node_id: not available
--- query_id: 01c2f4cd-0209-6de9-0002-f322009be56a
--- desc: execute adapter call
-show terse schemas in database NEEMBA
-    limit 10000
-/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "mdp_mssql_mine", "target_name": "dev"} */;
--- created_at: 2026-03-11T12:29:05.865589612+00:00
--- finished_at: 2026-03-11T12:29:06.087859613+00:00
--- elapsed: 222ms
--- outcome: success
--- dialect: snowflake
--- node_id: model.mdp_mssql_mine.silver_customer_type_performance_target
--- query_id: 01c2f4cd-0209-7848-0002-f322009bbc16
--- desc: get_relation > list_relations call
-SHOW OBJECTS IN SCHEMA "NEEMBA"."MINES" LIMIT 10000;
--- created_at: 2026-03-11T12:29:06.092335212+00:00
--- finished_at: 2026-03-11T12:29:06.733501593+00:00
--- elapsed: 641ms
--- outcome: success
--- dialect: snowflake
--- node_id: model.mdp_mssql_mine.silver_customer_type_performance_target
--- query_id: 01c2f4cd-0209-71d5-0002-f322009c3082
--- desc: execute adapter call
-create or replace   view NEEMBA.mines.b_silver_customer_type_performance_target
-  
-   as (
-    
+{{ 
+    config(
+        materialized= "view",
+        tags= ["silver", "customer_type_performance_target"]
+    )
+}}
 
 
 with eventchain as (
-    select * from NEEMBA.mines.a_bronze_eventchain
+    select * from {{ source('bronze', 'a_bronze_eventchain') }}
 ),
 
 eventchaincmtval as (
-    select * from NEEMBA.mines.a_bronze_eventchaincmtval
+    select * from {{ source('bronze', 'a_bronze_eventchaincmtval') }}
 ),
 
 eventchaintype as (
-    select * from NEEMBA.mines.a_bronze_eventchaintype
+    select * from {{ source('bronze', 'a_bronze_eventchaintype') }}
 ),
 
 event as (
-    select * from NEEMBA.mines.a_bronze_event
+    select * from {{ source('bronze', 'a_bronze_event') }}
 ),
 
 eventtype as (
-    select * from NEEMBA.mines.a_bronze_eventtype
+    select * from {{ source('bronze', 'a_bronze_eventtype') }}
 ),
 
 business_unit as (
-    select * from NEEMBA.mines.a_bronze_business_unit
+    select * from {{ source('bronze', 'a_bronze_business_unit') }}
 ),
 
 business_unit_type as (
-    select * from NEEMBA.mines.a_bronze_business_unit_type
+    select * from {{ source('bronze', 'a_bronze_business_unit_type') }}
 ),
 
 traversal2418695 as (
@@ -131,7 +105,7 @@ silver_customer_type_performance_target as (
         ,current_timestamp()                       as dbt_processed_at
         -- Metadata
         ,'silver_customer_type_performance_target' as dbt_model_name
-        ,'b_silver_'              as layer_prefix
+        ,'{{ var("silver_prefix") }}'              as layer_prefix
         ,'customer_type_performance_target'        as business_domain
     from details
     order by created_date desc
@@ -139,5 +113,3 @@ silver_customer_type_performance_target as (
 select * from silver_customer_type_performance_target
 
 
-  )
-/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.mdp_mssql_mine.silver_customer_type_performance_target", "profile_name": "mdp_mssql_mine", "target_name": "dev"} */;

@@ -60,3 +60,27 @@ sources:
 
       - name: b_silver_v_metaform2405991
         description: "v_metaform2405991 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform2405991)"
+
+      - name: b_silver_v_metaform2406017
+        description: "v_metaform2406017 information (Source:  mineprod.META_FORM_VIEW_SCHEMA.v_metaform2406017)"
+
+      - name: a_bronze_eventchain
+        description: "eventchain information (Source:  mineprod.dbo.eventchain)"
+
+      - name: a_bronze_eventchaincmtval
+        description: "eventchaincmtval information (Source:  mineprod.dbo.eventchaincmtval)"
+
+      - name: a_bronze_eventchaintype
+        description: "eventchaintype information (Source:  mineprod.dbo.eventchaintype)"
+      
+      - name: a_bronze_event
+        description: "event information (Source:  mineprod.dbo.event)"
+
+      - name: a_bronze_business_unit
+        description: "business_unit information (Source:  mineprod.dbo.business_unit)"
+
+      - name: a_bronze_business_unit_type
+        description: "business_unit_type information (Source:  mineprod.dbo.business_unit_type)"
+
+      - name: a_bronze_eventtype
+        description: "eventtype information (Source:  mineprod.dbo.eventtype)"

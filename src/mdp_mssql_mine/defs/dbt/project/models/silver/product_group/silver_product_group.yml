@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: silver_product_group
+    description: |
+      product_groupfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "product_group"]
+
+    columns:
+      - name: Product_Group_Code
+        description: "Unique code identifying the product group."
+
+      - name: Product_Group_Description
+        description: "Text description of the product group."
+
+      - name: Priority
+        description: "Priority level assigned to the product group."
+
+      
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null      
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"  
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"      
+        
+      - name: business_domain
+        description: "Business domain classification"      

@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: mtbf_after_pm
+    description: |
+      mtbf_after_pm from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all mtbf_after_pm. 
+      Sourced from mssql.
+
+    config:
+      tags: ["silver", "mtbf_after_pm"]
+    
+    columns:
+      - name: equip_no
+        description: "Unique identifier of the equipment."
+
+      - name: minesite
+        description: "Name of the mine site where the equipment is located."
+
+      - name: description_cat
+        description: "Category or description of the planned maintenance (PM)."
+
+      - name: pm_endtime
+        description: "End timestamp of the planned maintenance."
+
+      - name: first_unplanned_failure
+        description: "Start timestamp of the first unplanned failure after the PM."
+
+      - name: labour_type
+        description: "Type of labor associated with the unplanned failure."
+
+      - name: hours_after_pm
+        description: "Number of hours elapsed between the PM end and the first unplanned failure."
+
+      - name: yearmonth
+        description: "Year and month of the PM end, formatted as 'YYYY-MM'."
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: silver_customer_type_performance_target
+    description: |
+      customer_type_performance_targetfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "customer_type_performance_target"]
+
+    columns:
+      - name: eventchainid
+        description: "Unique identifier for each event chain."
+
+      - name: created_by
+        description: "User who created the event chain."
+
+      - name: created_date
+        description: "Timestamp when the event chain was created."
+
+      - name: eventchaintypeid
+        description: "Identifier for the type of the event chain."
+
+      - name: type
+        description: "Business unit type associated with the event chain when eventtypeid = 2."
+
+      - name: availability
+        description: "Availability metric associated with the event chain."
+
+      - name: mtbf
+        description: "Mean Time Between Failures (MTBF) metric for the event chain."
+
+      - name: type_customer
+        description: "Customer type associated with the event chain."
+
+      
+      
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null      
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"  
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"      
+        
+      - name: business_domain
+        description: "Business domain classification"      

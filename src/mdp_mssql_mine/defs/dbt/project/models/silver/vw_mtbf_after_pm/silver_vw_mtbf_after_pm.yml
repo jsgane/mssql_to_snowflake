@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: silver_vw_mtbf_after_pm
+    description: |
+      vw_mtbf_after_pmfrom mssql.
+
+      This silver layer model provides a clean, business-friendly view of all component codes. 
+      Sourced from the mssql tables.
+
+    config:
+      tags: ["silver", "vw_mtbf_after_pm"]
+
+    columns:
+      - name: "equip no."
+        description: "Unique identifier of the equipment."
+
+      - name: minesite
+        description: "Name of the mine site where the equipment is located."
+
+      - name: pm
+        description: "Category of the planned maintenance (PM)."
+
+      - name: pm_endtime
+        description: "End timestamp of the planned maintenance."
+
+      - name: first_unplanned_failure
+        description: "Start timestamp of the first unplanned failure after the PM."
+
+      - name: "labour type"
+        description: "Type of labor associated with the unplanned failure."
+
+      - name: "description cat"
+        description: "Category or description of the unplanned failure."
+
+      - name: dbt_processed_at
+        description: "Timestamp when dbt processed this data"
+        tests:
+          - not_null      
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"  
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"      
+        
+      - name: business_domain
+        description: "Business domain classification"      

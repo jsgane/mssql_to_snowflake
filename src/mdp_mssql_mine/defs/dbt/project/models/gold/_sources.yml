@@ -30,3 +30,9 @@ sources:
 
       - name: b_silver_mts_vw_visionlink_alerts
         description: "mts_vw_visionlink_alerts information (Source:  [NMBMTS].[dbo].[mts_vw_visionlink_alerts] )"
+
+      - name: b_silver_vw_mtbf_after_pm
+        description: "b_silver_vw_mtbf_after_pm information (Source:  mineprod.dbo.vw_mtbf_after_pm )"
+      
+      - name: b_silver_vw_nombre_arrets_reels
+        description: "b_silver_vw_nombre_arrets_reels information (Source:  mineprod.dbo.vw_nombre_arrets_reels )"

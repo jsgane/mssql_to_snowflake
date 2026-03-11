@@ -113,6 +113,36 @@ models:
         +docs:
           node_color: "#4CAF50"
 
+      product_group:
+        silver_product_group:
+          +alias: "product_group"
+        +tags: ["silver", "product_group"]
+        +docs:
+          node_color: "#4CAF50"
+
+      vw_mtbf_after_pm:
+        silver_vw_mtbf_after_pm:
+          +alias: "b_silver_vw_mtbf_after_pm"
+        +tags: ["silver", "vw_mtbf_after_pm"]
+        +docs:
+          node_color: "#4CAF50"
+
+      vw_nombre_arrets_reels:
+        silver_vw_nombre_arrets_reels:
+          +alias: "b_silver_vw_nombre_arrets_reels"
+        +tags: ["silver", "vw_nombre_arrets_reels"]
+        +docs:
+          node_color: "#4CAF50"
+
+      customer_type_performance_target:
+        silver_customer_type_performance_target:
+          +alias: "b_silver_customer_type_performance_target"
+        +tags: ["silver", "customer_type_performance_target"]
+        +docs:
+          node_color: "#4CAF50"
+
+
+
 
 
     ### GOLD
@@ -154,6 +184,21 @@ models:
         +tags: ["gold", "fact_smu"]
         +docs:
           node_color: "#FFD700"
+          
+      mtbf_after_pm:
+        mtbf_after_pm:
+          +alias: "mtbf_after_pm"
+        +tags: ["gold", "mtbf_after_pm"]
+        +docs:
+          node_color: "#FFD700"
+          
+      nb_arrets_reels:
+        nb_arrets_reels:
+          +alias: "nb_arrets_reels"
+        +tags: ["gold", "nb_arrets_reels"]
+        +docs:
+          node_color: "#FFD700"
+      
       
 
 
