@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: connectivity
+    description: |
+      connectivity from mssql.
+
+      This silver layer model provides a clean, business-friendly view of all connectivity. 
+      Sourced from mssql.
+
+    config:
+      tags: ["silver", "connectivity"]
+    
+    columns:
+      - name: serialnumber
+        description: "Unique serial number identifying the machine."
+
+      - name: prefix
+        description: "Prefix extracted from the machine serial number, typically representing the equipment family or category."
+
+      - name: lasteventtime30d
+        description: "Timestamp of the most recent device event recorded within the last 30 days."
+
+      - name: statusmachine
+        description: "Computed machine status based on device reporting behavior. Possible values are 'Reporting', 'Connected', or 'Not Connected'."
+
+      - name: lastreportingtime
+        description: "Timestamp of the last event associated with the machine's current reporting status category."
+
+      - name: hourssincelastreport
+        description: "Number of hours elapsed since the last reporting-related event for the machine."
+
+
+      - name: dbt_model_name
+        description: "Name of the dbt model that created this record"
+
+      - name: layer_prefix
+        description: "Data layer prefix (silver)"
+
+      - name: business_domain
+        description: "Business domain classification"

@@ -599,6 +599,39 @@ def equiptype_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
     return dg.MaterializeResult(
         metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
     )
+################### Comon_Prod ###############
+@dg.asset(
+    name="VlinkDevice",
+    group_name="data_for_mine_bronze",
+    description="VlinkDevice from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def vlinkdevice_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.VlinkDevice",
+        snowflake_table_name="a_bronze_vlinkdevice",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
+@dg.asset(
+    name="VLinkEntete",
+    group_name="data_for_mine_bronze",
+    description="VLinkEntete from MSSQL → Snowflake via BCP + COPY INTO",
+    kinds={"snowflake", "python", "sql", "bronze"}
+)
+def vlinkentete_assets(context: dg.AssetExecutionContext) -> dg.MaterializeResult:
+    result = extract_mssql_data(
+        mssql_table_name="dbo.VLinkEntete",
+        snowflake_table_name="a_bronze_vlinkentete",
+        logger=context.log,
+    )
+    return dg.MaterializeResult(
+        metadata={"rows_loaded": dg.MetadataValue.int(result["rows_loaded"])}
+    )
+
 
 ##@dg.asset(
 ##    name="mts_vw_down_event_history",

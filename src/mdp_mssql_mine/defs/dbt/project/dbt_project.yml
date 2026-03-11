@@ -198,6 +198,13 @@ models:
         +tags: ["gold", "nb_arrets_reels"]
         +docs:
           node_color: "#FFD700"
+          
+      connectivity:
+        connectivity:
+          +alias: "connectivity"
+        +tags: ["gold", "connectivity"]
+        +docs:
+          node_color: "#FFD700"
       
       
 

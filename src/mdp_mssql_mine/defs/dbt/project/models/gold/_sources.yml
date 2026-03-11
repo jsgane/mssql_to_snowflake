@@ -36,3 +36,15 @@ sources:
       
       - name: b_silver_vw_nombre_arrets_reels
         description: "b_silver_vw_nombre_arrets_reels information (Source:  mineprod.dbo.vw_nombre_arrets_reels )"
+
+  - name: bronze
+    description: "Bronze layer mine mssql data"
+    database: "{{ env_var('SNOWFLAKE_DATABASE', 'NEEMBA') }}"
+    schema: mines
+
+    tables:
+      - name: a_bronze_vlinkdevice
+        description: "vlinkdevice information (Source:  NMBMTS.dbo.vlinkdevice)"
+
+      - name: a_bronze_vlinkentete
+        description: "vlinkentete information (Source:  NMBMTS.dbo.vlinkentete)"

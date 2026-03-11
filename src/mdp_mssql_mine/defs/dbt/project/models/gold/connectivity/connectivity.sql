@@ -1,44 +1,18 @@
--- created_at: 2026-03-11T13:20:19.884326156+00:00
--- finished_at: 2026-03-11T13:20:20.265644622+00:00
--- elapsed: 381ms
--- outcome: success
--- dialect: snowflake
--- node_id: not available
--- query_id: 01c2f500-0209-71d5-0002-f322009c319e
--- desc: execute adapter call
-show terse schemas in database NEEMBA
-    limit 10000
-/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "mdp_mssql_mine", "target_name": "dev"} */;
--- created_at: 2026-03-11T13:20:21.289226455+00:00
--- finished_at: 2026-03-11T13:20:21.565078741+00:00
--- elapsed: 275ms
--- outcome: success
--- dialect: snowflake
--- node_id: model.mdp_mssql_mine.connectivity
--- query_id: 01c2f500-0209-6de9-0002-f322009be676
--- desc: get_relation > list_relations call
-SHOW OBJECTS IN SCHEMA "NEEMBA"."MINES" LIMIT 10000;
--- created_at: 2026-03-11T13:20:21.570336500+00:00
--- finished_at: 2026-03-11T13:20:22.140032108+00:00
--- elapsed: 569ms
--- outcome: success
--- dialect: snowflake
--- node_id: model.mdp_mssql_mine.connectivity
--- query_id: 01c2f500-0209-71d5-0002-f322009c31a2
--- desc: execute adapter call
-create or replace   view NEEMBA.mines.connectivity
-  
-   as (
-    
+{{ 
+    config(
+        materialized= "view",
+        tags= ["silver", "connectivity"]
+    )
+}}
 
 
 with vlinkdevice as (
-    select * from NEEMBA.mines.a_bronze_vlinkdevice
+    select * from {{ source('bronze', 'a_bronze_vlinkdevice') }}
 ),
 
 
 vlinkentete as (
-    select * from NEEMBA.mines.a_bronze_vlinkentete
+    select * from {{ source('bronze', 'a_bronze_vlinkentete') }}
 ),
 
 
@@ -105,7 +79,7 @@ connectivity as (
         ,current_timestamp()                                               as dbt_processed_at
         -- Metadata                                                               
         ,'gold_connectivity'                                               as dbt_model_name
-        ,'c_gold_'                                        as layer_prefix
+        ,'{{ var("gold_prefix") }}'                                        as layer_prefix
         ,'connectivity'                                                    as business_domain
     from conn_kpi_agg agg
 )
@@ -113,5 +87,3 @@ connectivity as (
 
 select * from connectivity
 
-  )
-/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.mdp_mssql_mine.connectivity", "profile_name": "mdp_mssql_mine", "target_name": "dev"} */;

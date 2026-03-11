@@ -32,11 +32,13 @@ from mdp_mssql_mine.defs.load.assets import(
     equip_assets,
     equipcmtval_assets,
     equiptype_assets,
+    vlinkdevice_assets,
+    vlinkentete_assets,
 )
 
 ########  jobs
 mns_d_site_job = define_asset_job(
-    name="mns_d_site_assets_job",
+    name="mns_d_site_job",
     selection=[mns_d_site_assets],
 )
 
@@ -124,56 +126,65 @@ v_metaform2406017_job = define_asset_job(
 )
 
 eventchain_job = define_asset_job(
-    name="eventchain_assets_job",
+    name="eventchain_job",
     selection=[eventchain_assets],
 )
 
 event_job = define_asset_job(
-    name="event_assets_job",
+    name="event_job",
     selection=[event_assets],
 )
 
 eventtype_job = define_asset_job(
-    name="eventtype_assets_job",
+    name="eventtype_job",
     selection=[eventtype_assets],
 )
 
 eventchaincmtval_job = define_asset_job(
-    name="eventchaincmtval_assets_job",
+    name="eventchaincmtval_job",
     selection=[eventchaincmtval_assets],
 )
 
 eventchaintype_job = define_asset_job(
-    name="eventchaintype_assets_job",
+    name="eventchaintype_job",
     selection=[eventchaintype_assets],
 )
 
 business_unit_job = define_asset_job(
-    name="business_unit_assets_job",
+    name="business_unit_job",
     selection=[business_unit_assets],
 )
 
 business_unit_type_job = define_asset_job(
-    name="business_unit_type_assets_job",
+    name="business_unit_type_job",
     selection=[business_unit_type_assets],
 )
 
 equip_job = define_asset_job(
-    name="equip_assets_job",
+    name="equip_job",
     selection=[equip_assets],
 )
 
 equipcmtval_job = define_asset_job(
-    name="equipcmtval_assets_job",
+    name="equipcmtval_job",
     selection=[equipcmtval_assets],
 )
 
 equiptype_job = define_asset_job(
-    name="equiptype_assets_job",
+    name="equiptype_job",
     selection=[equiptype_assets],
 )
 
 
+vlinkdevice_job = define_asset_job(
+    name="vlinkdevice_job",
+    selection=[vlinkdevice_assets],
+)
+
+vlinkentete_job = define_asset_job(
+    name="vlinkentete_job",
+    selection=[vlinkentete_assets],
+)
 ####### schedule : every day
 mns_d_site_schedule = ScheduleDefinition(
     job=mns_d_site_job,
@@ -319,6 +330,15 @@ equiptype_schedule = ScheduleDefinition(
     job=equiptype_job,
     cron_schedule="0 0 * * *",  # every day
 )
+vlinkdevice_schedule = ScheduleDefinition(
+    job=vlinkdevice_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+vlinkentete_schedule = ScheduleDefinition(
+    job=vlinkentete_job,
+    cron_schedule="0 0 * * *",  # every day
+)
+
 ###### Defs
 defs = Definitions(
     jobs= [
@@ -350,6 +370,8 @@ defs = Definitions(
         equip_job,
         equipcmtval_job,
         equiptype_job,
+        vlinkdevice_job,
+        vlinkentete_job,
     ],
     assets=[
         mns_d_site_assets,
@@ -381,6 +403,8 @@ defs = Definitions(
         equip_assets,
         equipcmtval_assets,
         equiptype_assets,
+        vlinkdevice_assets,
+        vlinkentete_assets,
     ],
     resources={
         "dlt":DagsterDltResource(),
@@ -415,6 +439,8 @@ defs = Definitions(
         equip_schedule,
         equipcmtval_schedule,
         equiptype_schedule,
+        vlinkdevice_schedule,
+        vlinkentete_schedule,
     ]
 )
 
