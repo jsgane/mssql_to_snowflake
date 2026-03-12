@@ -3,7 +3,7 @@ FROM python:3.12-slim-bookworm
 # Copy uv binary from the official image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-ARG GITHUB_TOKEN
+ARG GH_PAT
 
 # Install Java and required system packages
 RUN apt-get update && \
@@ -30,8 +30,8 @@ COPY --chown=dagster:dagster pyproject.toml /home/dagster/app/pyproject.toml
 COPY --chown=dagster:dagster src /home/dagster/app/src
 COPY --chown=dagster:dagster tests /home/dagster/app/tests
 
-RUN if [ -n "$GITHUB_TOKEN" ]; then \
-    git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"; \
+RUN if [ -n "$GH_PAT" ]; then \
+    git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf "https://github.com/"; \
     fi
 
 RUN uv pip install --system -e .
