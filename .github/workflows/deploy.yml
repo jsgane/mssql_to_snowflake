@@ -121,7 +121,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build \
-            --build-arg GITHUB_TOKEN=${{ steps.generate_token.outputs.token }} \
+            --build-arg GITHUB_TOKEN=${{ secrets.GH_PAT }} \
             --build-arg MSSQL_HOST=${{ secrets.MSSQL_HOST }} \
             --build-arg MSSQL_PORT=${{ secrets.MSSQL_PORT }} \
             --build-arg MSSQL_USER=${{ secrets.MSSQL_USER }} \
