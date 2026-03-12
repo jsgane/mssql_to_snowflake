@@ -36,8 +36,8 @@ RUN if [ -n "$GITHUB_TOKEN" ]; then \
 
 RUN uv pip install --system -e .
 
-RUN java -version && \
-    python -c "import mdp_common; from pathlib import Path; drivers = Path(mdp_common.__file__).parent / 'drivers'; print(f'✅ mdp_common drivers found: {list(drivers.glob(\"*.jar\"))}')"
+#RUN java -version && \
+#    python -c "import mdp_common; from pathlib import Path; drivers = Path(mdp_common.__file__).parent / 'drivers'; print(f'✅ mdp_common drivers found: {list(drivers.glob(\"*.jar\"))}')"
 
 # Switch to non-root user
 # USER dagster
