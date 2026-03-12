@@ -17,7 +17,12 @@ env:
   REGISTRY: ${{ vars.NEEMBA_LOCAL_DATA_REGISTRY || 'dagster-registry:6000' }}
   IMAGE_NAME: ${{ github.event.repository.name }}
 
+## JOBS
+
+
 jobs:
+
+  # DETERMINE TAG ────────────────────────────────────────────────────────
   determine-tag:
     runs-on: self-hosted
     outputs:
@@ -40,7 +45,7 @@ jobs:
             echo "IMAGE_TAG=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
           fi
 
-  # ── NEW: INSTALL BCP + VALIDATE MSSQL ───────────────────────────────────────
+  # ─INSTALL BCP + VALIDATE MSSQL ─────────────────────────────────────────
   install-bcp:
     runs-on: self-hosted
     needs: determine-tag
@@ -51,23 +56,19 @@ jobs:
           if ! command -v bcp &> /dev/null; then
             echo "BCP not found — installing mssql-tools18..."
 
-            # Microsoft repo key
             curl -sSL https://packages.microsoft.com/keys/microsoft.asc \
               | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
 
-            # Microsoft apt source for current Ubuntu version
             curl -sSL https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list \
               | sudo tee /etc/apt/sources.list.d/mssql-release.list
 
             sudo apt-get update -qq
 
-            # Accept EULA — install mssql-tools18 + ODBC Driver 18 + unixODBC
             sudo ACCEPT_EULA=Y apt-get install -y -qq \
               mssql-tools18 \
               msodbcsql18 \
               unixodbc-dev
 
-            # Persist bcp/sqlcmd in PATH for all users
             echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' \
               | sudo tee -a /etc/environment
           else
@@ -99,9 +100,10 @@ jobs:
             && echo "✅ MSSQL connection OK" \
             || { echo "❌ MSSQL connection failed"; exit 1; }
 
+  # BUILD & PUSH DOCKER IMAGE ────────────────────────────────────────────
   build-and-push:
     runs-on: self-hosted
-    needs: [determine-tag, install-bcp]   # waits for BCP install
+    needs: [determine-tag, install-bcp]
 
     steps:
       - name: Checkout code
@@ -118,8 +120,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          # MSSQL credentials passed as build-args so the image
-          # can bake the config (passwords are NOT baked — use secrets at runtime)
           docker build \
             --build-arg GITHUB_TOKEN=${{ steps.generate_token.outputs.token }} \
             --build-arg MSSQL_HOST=${{ secrets.MSSQL_HOST }} \
@@ -135,7 +135,8 @@ jobs:
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.determine-tag.outputs.image_tag }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
-  update-manifest-and-deploy:
+  # ─DEPLOY VIA SSH + DOCKER ──────────────────────────────────────────────
+  deploy:
     runs-on: self-hosted
     needs: [determine-tag, build-and-push]
 
@@ -145,110 +146,187 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Update k8s manifest with new image tag
+      - name: Write .env file for remote server
         run: |
-          FULL_IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.determine-tag.outputs.image_tag }}"
-          sed -i 's/code-example/${{ env.IMAGE_NAME }}/g' k8s/main.yaml
-          sed -i "s|image: ${{ env.REGISTRY }}/[^:]*:.*|image: ${FULL_IMAGE}|g" k8s/main.yaml
-          sed -i "/name: DAGSTER_CURRENT_IMAGE/,/value:/ s|value: .*|value: \"${FULL_IMAGE}\"|" k8s/main.yaml
+          cat > deploy.env <<EOF
+          IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.determine-tag.outputs.image_tag }}
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
 
-          SERVICE_NAME=$(grep -A5 "kind: Service" k8s/main.yaml | grep "name:" | head -1 | awk '{print $2}')
-          if [[ ! "$SERVICE_NAME" =~ ^dagster-user- ]]; then
-            echo "ERROR: Service name must start with 'dagster-user-' prefix"
-            echo "Current service name: $SERVICE_NAME"
-            exit 1
-          fi
+          # MSSQL / BCP
+          MSSQL_HOST=${{ secrets.MSSQL_HOST }}
+          MSSQL_PORT=${{ secrets.MSSQL_PORT }}
+          MSSQL_USER=${{ secrets.MSSQL_USER }}
+          MSSQL_PASSWORD=${{ secrets.MSSQL_PASSWORD }}
+          MSSQL_DATABASE=${{ secrets.MSSQL_DATABASE }}
 
-          echo "=== Updated k8s/main.yaml ==="
-          echo "Deployment name: ${{ env.IMAGE_NAME }}"
-          echo "Service name: $SERVICE_NAME ✓"
-          echo "Image references:"
-          grep "image:" k8s/main.yaml | grep -v "#"
+          # Snowflake
+          SNOWFLAKE_ACCOUNT=${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER=${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD=${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE=${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WAREHOUSE=${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE=${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_SCHEMA=${{ secrets.SNOWFLAKE_SCHEMA }}
+          EOF
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
+      - name: Copy .env to remote server
+        uses: appleboy/scp-action@v0.1.7
         with:
-          version: "latest"
+          host:     ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key:      ${{ secrets.DEPLOY_SSH_KEY }}
+          source:   deploy.env
+          target:   /opt/dagster/${{ env.IMAGE_NAME }}/
 
-      - name: Configure kubectl with kubeconfig
-        run: |
-          echo "${{ secrets.NEEMBA_LOCAL_DATA_KUBECONFIG }}" | base64 -d > /tmp/kubeconfig
-          echo "KUBECONFIG=/tmp/kubeconfig" >> $GITHUB_ENV
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key:      ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -e
 
-      - name: Create / update MSSQL k8s secret
-        # Upserts the secret so Dagster pods can consume MSSQL creds as env vars.
-        # In your k8s/main.yaml Deployment, reference it like:
-        #   envFrom:
-        #     - secretRef:
-        #         name: mssql-credentials
-        run: |
-          kubectl create secret generic mssql-credentials \
-            --from-literal=MSSQL_HOST="${{ secrets.MSSQL_HOST }}" \
-            --from-literal=MSSQL_PORT="${{ secrets.MSSQL_PORT }}" \
-            --from-literal=MSSQL_USER="${{ secrets.MSSQL_USER }}" \
-            --from-literal=MSSQL_PASSWORD="${{ secrets.MSSQL_PASSWORD }}" \
-            --from-literal=MSSQL_DATABASE="${{ secrets.MSSQL_DATABASE }}" \
-            --namespace dagster \
-            --dry-run=client -o yaml | kubectl apply -f -
+            DEPLOY_DIR="/opt/dagster/${{ env.IMAGE_NAME }}"
+            IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.determine-tag.outputs.image_tag }}"
 
-          echo "✅ mssql-credentials secret upserted in dagster namespace"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "  1/5 — Install BCP on server (if missing)"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            if ! command -v bcp &> /dev/null; then
+              curl -sSL https://packages.microsoft.com/keys/microsoft.asc \
+                | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
 
-      - name: Apply k8s configuration
-        run: |
-          kubectl apply -f k8s/main.yaml
+              curl -sSL https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list \
+                | sudo tee /etc/apt/sources.list.d/mssql-release.list
 
-          kubectl rollout restart deployment/${{ env.IMAGE_NAME }} -n dagster
-          kubectl rollout status deployment/${{ env.IMAGE_NAME }} -n dagster --timeout=300s
+              sudo apt-get update -qq
+              sudo ACCEPT_EULA=Y apt-get install -y -qq \
+                mssql-tools18 msodbcsql18 unixodbc-dev
 
-          kubectl get deployment ${{ env.IMAGE_NAME }} -n dagster
-          kubectl get pods -n dagster -l app=${{ env.IMAGE_NAME }}
+              echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' \
+                | sudo tee -a /etc/environment
+            fi
+            export PATH="$PATH:/opt/mssql-tools18/bin"
+            echo "✅ BCP ready: $(bcp -v 2>&1 | head -1)"
 
-          echo ""
-          echo "=== Service Status ==="
-          kubectl get service dagster-user-${{ env.IMAGE_NAME }} -n dagster
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "  2/5 — Prepare deploy directory"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            mkdir -p "$DEPLOY_DIR"
+            cp "$DEPLOY_DIR/deploy.env" "$DEPLOY_DIR/.env"
+            echo "✅ .env ready"
 
-  update-minio:
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "  3/5 — Pull new Docker image"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            docker pull "$IMAGE"
+            echo "✅ Image pulled: $IMAGE"
+
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "  4/5 — Restart container"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            docker stop "${{ env.IMAGE_NAME }}" 2>/dev/null || true
+            docker rm   "${{ env.IMAGE_NAME }}" 2>/dev/null || true
+
+            docker run -d \
+              --name "${{ env.IMAGE_NAME }}" \
+              --restart unless-stopped \
+              --env-file "$DEPLOY_DIR/.env" \
+              -e PATH="/opt/mssql-tools18/bin:$PATH" \
+              -v /opt/mssql-tools18:/opt/mssql-tools18:ro \
+              -v /etc/odbcinst.ini:/etc/odbcinst.ini:ro \
+              -p 3000:3000 \
+              "$IMAGE"
+
+            echo "✅ Container started"
+
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "  5/5 — Health check"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            sleep 10
+            docker ps \
+              --filter "name=${{ env.IMAGE_NAME }}" \
+              --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+            if ! docker ps \
+              --filter "name=${{ env.IMAGE_NAME }}" \
+              --filter "status=running" | grep -q "${{ env.IMAGE_NAME }}"; then
+              echo "❌ Container failed to start. Logs:"
+              docker logs "${{ env.IMAGE_NAME }}" --tail 50
+              exit 1
+            fi
+
+            echo ""
+            echo "🚀 Deploy complete: $IMAGE"
+
+  #5. UPDATE REGISTRY (replaces MinIO) ─────────────────────────────────────
+  # Commits dagster-pipelines.json directly into the repo.
+  # No external storage needed — file is versioned and visible to everyone.
+  update-registry:
     runs-on: self-hosted
-    needs: update-manifest-and-deploy
+    needs: deploy
 
     steps:
-      - name: Update dagster.json in MinIO
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Use GitHub App token so the commit can trigger other workflows
+          token: ${{ secrets.WORKFLOW_GRLOBAL_APP_KEY }}
+
+      - name: Install jq
         run: |
-          if ! command -v mc &> /dev/null; then
-            wget https://dl.min.io/client/mc/release/linux-amd64/mc
-            chmod +x mc
-            sudo mv mc /usr/local/bin/
-          fi
-
-          mc alias set minio ${{ vars.NEEMBA_LOCAL_MINIO_HOST }} \
-            ${{ secrets.NEEMBA_LOCAL_MINIO_ACCESS_KEY }} \
-            ${{ secrets.NEEMBA_LOCAL_MINIO_SECRET_KEY }}
-
-          mc cp minio/dagster/dagster-pipelines/dagster.json ./dagster.json || echo "[]" > ./dagster.json
-
-          PROJECT_NAME="${{ github.event.repository.name }}"
-          PROJECT_URL="${{ github.event.repository.html_url }}"
-
           if ! command -v jq &> /dev/null; then
             sudo apt-get update && sudo apt-get install -y jq
           fi
 
-          jq --arg name "$PROJECT_NAME" --arg repo "$PROJECT_URL" '
-            map(select(.name != $name)) + [{"name": $name, "repository": $repo}]
-          ' dagster.json > dagster_updated.json
+      - name: Update dagster-pipelines.json
+        run: |
+          REGISTRY_FILE="dagster-pipelines.json"
 
-          if ! jq empty dagster_updated.json 2>/dev/null; then
-            echo "ERROR: Invalid JSON format"
-            cat dagster_updated.json
-            exit 1
+          # Create file if it doesn't exist yet
+          [ -f "$REGISTRY_FILE" ] || echo "[]" > "$REGISTRY_FILE"
+
+          PROJECT_NAME="${{ github.event.repository.name }}"
+          PROJECT_URL="${{ github.event.repository.html_url }}"
+          IMAGE_TAG="${{ needs.determine-tag.outputs.image_tag }}"
+          DEPLOYED_AT="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+
+          # Upsert entry — replace existing project or append new one
+          jq \
+            --arg name       "$PROJECT_NAME" \
+            --arg repo       "$PROJECT_URL" \
+            --arg tag        "$IMAGE_TAG" \
+            --arg deployed   "$DEPLOYED_AT" \
+            'map(select(.name != $name)) + [{
+               "name":        $name,
+               "repository":  $repo,
+               "image_tag":   $tag,
+               "deployed_at": $deployed
+             }]' \
+            "$REGISTRY_FILE" > tmp.json && mv tmp.json "$REGISTRY_FILE"
+
+          echo "=== Updated dagster-pipelines.json ==="
+          jq . "$REGISTRY_FILE"
+
+      - name: Commit and push registry update
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dagster-pipelines.json
+
+          # Only commit if there are actual changes
+          if git diff --cached --quiet; then
+            echo "No changes to dagster-pipelines.json — skipping commit"
+          else
+            git commit -m "chore: update registry → ${{ env.IMAGE_NAME }} @ ${{ needs.determine-tag.outputs.image_tag }}"
+            git push origin HEAD:main
+            echo "✅ dagster-pipelines.json committed and pushed"
           fi
 
-          echo "=== Updated dagster.json ==="
-          jq . dagster_updated.json
-
-          mc cp dagster_updated.json minio/dagster/dagster-pipelines/dagster.json
-          echo "Successfully updated dagster.json in MinIO"
-
+  # ─SYNC DBT TO SNOWFLAKE ─────────────────────────────────────────────────
   sync-dbt-to-snowflake:
     runs-on: self-hosted
     needs: build-and-push
@@ -296,11 +374,11 @@ jobs:
 
           PYTHON_MODULE=$(echo "$REPO_NAME" | tr '-' '_')
           echo "PYTHON_MODULE=${PYTHON_MODULE}" >> $GITHUB_OUTPUT
-          echo "✓ Python module name: ${PYTHON_MODULE}"
+          echo "✓ Python module: ${PYTHON_MODULE}"
 
           SCHEMA="services"
           echo "SCHEMA=${SCHEMA}" >> "$GITHUB_OUTPUT"
-          echo "✓ Schema name: ${SCHEMA}"
+          echo "✓ Schema: ${SCHEMA}"
 
           echo ""
           echo "=== Derived Configuration ==="
@@ -308,7 +386,7 @@ jobs:
           echo "Python Module: $PYTHON_MODULE"
           echo "Schema:        $SCHEMA"
 
-      - name: Prepare dbt project for production deployment
+      - name: Prepare dbt project for production
         run: |
           rm -rf src/${{ steps.vars.outputs.PYTHON_MODULE }}/defs/dbt/project/target
           rm -rf src/${{ steps.vars.outputs.PYTHON_MODULE }}/defs/dbt/project/logs
@@ -317,7 +395,7 @@ jobs:
           cp src/${{ steps.vars.outputs.PYTHON_MODULE }}/defs/dbt/project/profiles.prod.yml \
              src/${{ steps.vars.outputs.PYTHON_MODULE }}/defs/dbt/project/profiles.yml
 
-          echo "dbt project prepared for production deployment"
+          echo "✅ dbt project prepared"
 
       - name: Deploy dbt project to Snowflake
         run: |
@@ -329,9 +407,9 @@ jobs:
             --role TRANSFORM \
             -c deploy
 
-          echo "dbt project '${{ steps.vars.outputs.PYTHON_MODULE }}' synced to Snowflake schema '${{ steps.vars.outputs.SCHEMA }}'"
+          echo "✅ dbt project '${{ steps.vars.outputs.PYTHON_MODULE }}' synced to Snowflake"
 
       - name: Validate dbt project
         run: |
           snow sql -q "SHOW DBT PROJECTS IN SCHEMA ${{ steps.vars.outputs.SCHEMA }}" -c deploy
-          echo "dbt project validation complete for schema: ${{ steps.vars.outputs.SCHEMA }}"
+          echo "✅ dbt validation complete"
